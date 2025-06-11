@@ -1,0 +1,12 @@
+import "./../App.css";
+
+export default function DocumentSection() {
+    return(
+        <div id="document-div">
+            <form>
+                <input type="button" name="uploadDocBut" value={'Upload'}></input>
+                <p id="documentTypeText">pdf, word, etc..</p>
+            </form>
+        </div>
+    );
+}
