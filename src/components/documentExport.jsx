@@ -18,7 +18,6 @@ export default function DocumentExport() {
     }
     return (
         <div style={{ overflowY: 'scroll', height: '90vh', padding: '1rem'  }}>
-
             <Document file={'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf'} onLoadSuccess={onDocumentLoadSuccess} options={options}>
                 {Array.from(new Array(numPages), (el, index) => (
                 <div key={`page_${index + 1}`} style={{ marginBottom: '2rem' }}>

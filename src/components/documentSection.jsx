@@ -9,7 +9,7 @@ export default function DocumentSection() {
             {/* <DocumentExport /> */}
             <form>
                 <input type="button" name="uploadDocBut" value={'Upload'}></input>
-                <p id="documentTypeText">pdf, word, etc..</p>
+                <p id="documentTypeText">Upload pdf</p>
             </form>
         </div>
     );

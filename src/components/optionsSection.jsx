@@ -4,7 +4,7 @@ export default function OptionsSection({setOllama}) {
     return (
         <>
             <section id="options-section">
-                <button>+</button>
+                {/* <button>+</button> */}
                 <select name="ollamas" id="ollama-select" onChange={e=>setOllama(e.target.value)}>
                 <option value={""}>Select Model</option>
                 <option value={"qwen3"}>qwen3</option>
