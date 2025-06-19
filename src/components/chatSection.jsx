@@ -1,7 +1,7 @@
 import "./../App.css";
 import ChatResponse from "./chatResponse";
 import CurrentChats from "./currentChats";
-import sidebar from "./../assets/sidebar.svg";
+import sidebar from "./../assets/icons/app/sidebar.svg";
 import { useState } from "react";
 export default function ChatSection({ollama}) {
 
@@ -12,10 +12,10 @@ export default function ChatSection({ollama}) {
                 {/* <CurrentChats /> */}
             <div id="text-chat-div">
                 <div className="flex-between">
-                    {/* <p>{ollama}</p> */}
+                    {sidebarStatus ? <p>{ollama}</p> : null }
                     <img src={sidebar} width={35} id="chat-sidebar" onClick={() => setSidebarStatus(1 - sidebarStatus)}/>
                 </div>
-                <ChatResponse check={sidebarStatus}/>
+                <ChatResponse check={sidebarStatus} ollama={ollama}/>
             </div>
         </div>
     );

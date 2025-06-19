@@ -7,7 +7,7 @@ const options = {
   standardFontDataUrl: '/standard_fonts/',
 };
 
-export default function DocumentExport() {
+export default function DocumentExport(props) {
 
     const [numPages, setNumPages] = useState();
     const [pageNumber, setPageNumber] = useState(1);
@@ -18,7 +18,7 @@ export default function DocumentExport() {
     }
     return (
         <div style={{ overflowY: 'scroll', height: '90vh', padding: '1rem'  }}>
-            <Document file={'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf'} onLoadSuccess={onDocumentLoadSuccess} options={options}>
+            <Document file={props.docData} onLoadSuccess={onDocumentLoadSuccess} options={options}>
                 {Array.from(new Array(numPages), (el, index) => (
                 <div key={`page_${index + 1}`} style={{ marginBottom: '2rem' }}>
                     <Page pageNumber={index + 1} width={600} scale={1.3} renderTextLayer={false} renderAnnotationLayer={false}/>

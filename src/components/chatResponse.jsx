@@ -11,7 +11,8 @@ export default function ChatResponse(props) {
     const addToUserRes = (event) => {
         if (event.key === "Enter" && !event.shiftKey) {
             event.preventDefault();
-            if (prompt.trim !== "") {
+            if (prompt.trim() !== "" && props.ollama !== "") {
+                console.log(prompt);
                 setUserRes([...userRes,prompt]);
                 setPrompt("");
             }

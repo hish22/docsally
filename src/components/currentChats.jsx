@@ -1,4 +1,4 @@
-import sidebarSvg from "./../assets/sidebar.svg";
+// import sidebarSvg from "./../assets/sidebar.svg";
 
 export default function CurrentChats() {
     return(
