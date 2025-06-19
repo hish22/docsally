@@ -12,7 +12,8 @@ export default function ChatSection({ollama}) {
                 {/* <CurrentChats /> */}
             <div id="text-chat-div">
                 <div className="flex-between">
-                    {sidebarStatus ? <p>{ollama}</p> : null }
+                    {/* {sidebarStatus ? <p>{ollama}</p> : null } */}
+                    <p></p>
                     <img src={sidebar} width={35} id="chat-sidebar" onClick={() => setSidebarStatus(1 - sidebarStatus)}/>
                 </div>
                 <ChatResponse check={sidebarStatus} ollama={ollama}/>

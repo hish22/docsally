@@ -3,15 +3,10 @@ import { open } from "@tauri-apps/plugin-dialog";
 import { readFile } from "@tauri-apps/plugin-fs";
 import DocumentExport from "./documentExport";
 import { useState, useMemo } from "react";
-
+import { invoke } from "@tauri-apps/api/core";
 
 export default function DocumentSection() {
 
-    // const fileContent = (event) => {
-    //     console.log(event.target.files[0]);
-    // }
-
-    // const [path,setPath] = useState(null);
     const [uploadedFile,setUploadedFile] = useState(null);
     const [fileContent,setFileContent] = useState(null);
 
@@ -23,7 +18,9 @@ export default function DocumentSection() {
         });
 
         if(path) {
-            setUploadedFile(path);
+            await setUploadedFile(path);
+            const file = path;
+            invoke('entry',{file});
         }
 
         const data = readFile(path);
@@ -33,15 +30,7 @@ export default function DocumentSection() {
             console.log(err);
         });
     }
-
-    // const handleFile = (event) => {
-    //     const selectedFile = event.target.files[0];
-    //     console.log(selectedFile);
-    //     if(setUploadedFile) {
-    //         setUploadedFile(selectedFile);
-    //     }
-    // }
-
+    // No recreation or recompute until the dep changes
     const memoizedFile = useMemo(() => fileContent ? { data: fileContent } : null, [fileContent]);
 
     return(
@@ -55,7 +44,6 @@ export default function DocumentSection() {
                         <p id="documentTypeText"> ☺ Content to be discussed about</p>
                     </>
                 ) : null}
-
             </form>
         </div>
     );
