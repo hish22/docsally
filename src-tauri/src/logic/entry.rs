@@ -1,57 +1,84 @@
 use langchain_rust::{
-    chain::{Chain, ConversationalRetrieverChainBuilder},
+    chain::{Chain, ConversationalRetrieverChain, ConversationalRetrieverChainBuilder},
     llm::{ollama::openai::OllamaConfig, OpenAI},
     prompt_args,
     vectorstore::Retriever,
 };
+use std::sync::{Arc, Mutex};
+
+#[derive(Default)]
+pub struct AppState {
+    chat_service: Mutex<Option<Arc<OllamaChat>>>,
+}
 
 use crate::logic::{
     db_embedding::db_embedding, ollama_embeddings::ollama_embedder, pdf_extract::extract_pdf,
 };
 
-// Computed when needed!
-// fn chunk_vector(vector: &Vec<f64>, chunk_size: usize, overlap: usize) -> Vec<Vec<f64>> {
-//     let mut chunk_start = 0;
-//     let mut chunk_end = chunk_size;
-//     let mut chunks = vec![];
-//     while vector.len() > chunk_start {
-//         let part = vector[chunk_start..chunk_end].to_vec();
-//         chunk_start += chunk_size - overlap;
-//         chunks.push(part);
-//     }
-//     chunks
-// }
+pub struct OllamaChat {
+    chain: ConversationalRetrieverChain,
+}
+
+impl OllamaChat {
+    pub async fn new(file: String, llmType: String) -> Result<Self, Box<dyn std::error::Error>> {
+        let content = extract_pdf(file);
+        let store = db_embedding(ollama_embedder(), content).await;
+
+        let llm = OpenAI::new(OllamaConfig::default()).with_model(llmType);
+
+        let chain = ConversationalRetrieverChainBuilder::new()
+            .llm(llm)
+            .rephrase_question(true)
+            .retriever(Retriever::new(store, 4))
+            .build()?;
+
+        Ok(Self { chain })
+    }
+
+    pub async fn ask_question(&self, question: &str) -> Result<String, Box<dyn std::error::Error>> {
+        let input = prompt_args! {
+            "question" => question,
+        };
+
+        let result = self.chain.invoke(input).await?;
+        Ok(result)
+    }
+}
 
 #[tauri::command]
-pub async fn entry(file: String) {
-    let content = extract_pdf(file);
-    let store = db_embedding(ollama_embedder(), content).await;
+pub async fn register_pdf(
+    file: String,
+    llm: String,
+    state: tauri::State<'_, AppState>,
+) -> Result<String, String> {
+    println!("{}", llm);
+    println!("{}", file);
+    // Do the expensive processing
+    let chat_service = OllamaChat::new(file, llm)
+        .await
+        .map_err(|e| format!("Failed to initialize chat service: {}", e))?;
 
-    let llm = OpenAI::new(OllamaConfig::default()).with_model("gemma3");
+    // Store it in app state
+    *state.chat_service.lock().unwrap() = Some(Arc::new(chat_service));
 
-    let chain = ConversationalRetrieverChainBuilder::new()
-        .llm(llm)
-        .rephrase_question(true)
-        .retriever(Retriever::new(store, 4))
-        .build()
-        .expect("Error building ConversationalChain");
-    let input = prompt_args! {
-            "question" => "Why the amount of memory required to store a value should be minimized?",
-    };
+    Ok("Chat service initialized successfully".to_string())
+}
 
-    let result = chain.invoke(input).await;
+#[tauri::command]
+pub async fn ask_question(
+    question: String,
+    state: tauri::State<'_, AppState>,
+) -> Result<String, String> {
+    let chat_service_arc = {
+        let guard = state.chat_service.lock().unwrap();
+        guard.clone() // Clone the Arc, not the ChatService
+    }; // Guard dropped here
 
-    println!("{}", result.unwrap());
-
-    // let input = prompt_args! {
-    //         "question" => "When did the war ended?",
-    // };
-
-    // let result = chain.invoke(input).await;
-
-    // println!("{}", result.unwrap());
-
-    // let embeddings = ollama_embeddings(content);
-    // let content = embeddings.await;
-    // let result: Vec<Vec<f64>> = chunk_vector(&content[0], 1536, 100);
+    match chat_service_arc {
+        Some(chat_service) => chat_service
+            .ask_question(&question)
+            .await
+            .map_err(|e| format!("Error asking question: {}", e)),
+        None => Err("Chat service not initialized. Please load a PDF file first.".to_string()),
+    }
 }

@@ -33,4 +33,5 @@ tokio = { version = "1.45.1", features = ["full", "macros", "rt-multi-thread"] }
 # sqlite-vec = "0.1.6"
 sqlx = { version = "0.8.6", features = ["sqlite", "runtime-tokio-native-tls"] }
 surrealdb = { version = "2.3.5", features = ["kv-mem"] }
+# tokio-tungstenite = "0.27.0"
 # rusqlite = "0.36.0"

@@ -36,21 +36,21 @@ pub async fn db_embedding(
         .await
         .unwrap();
 
-    db.query("DEFINE NAMESPACE test;")
+    db.query("DEFINE NAMESPACE ollama;")
         .await
         .unwrap()
         .check()
         .unwrap();
-    db.query("USE NAMESPACE test; DEFINE DATABASE test;")
+    db.query("USE NAMESPACE ollama; DEFINE DATABASE vectors;")
         .await
         .unwrap()
         .check()
         .unwrap();
 
-    db.use_ns("test").await.unwrap();
-    db.use_db("test").await.unwrap();
+    db.use_ns("ollama").await.unwrap();
+    db.use_db("vectors").await.unwrap();
 
-    // init the sqlite vector store
+    // init the surrealDB vector store
     let store = StoreBuilder::new()
         .embedder(ollama_embedder)
         .db(db)
@@ -72,21 +72,6 @@ pub async fn db_embedding(
         .unwrap();
 
     println!("Document added successfully!");
-
-    // let query = String::from("Do you know osama?");
-
-    // let result = store
-    //     .similarity_search(&query, 2, &VecStoreOptions::default())
-    //     .await
-    //     .unwrap();
-
-    // if result.is_empty() {
-    //     println!("No results found.");
-    // } else {
-    //     result.iter().for_each(|r| {
-    //         println!("Document: {}", r.page_content);
-    //     });
-    // }
 
     store
 }
