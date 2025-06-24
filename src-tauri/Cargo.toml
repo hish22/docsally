@@ -34,6 +34,7 @@ tokio = { version = "1.45.1", features = ["full", "macros", "rt-multi-thread"] }
 sqlx = { version = "0.8.6", features = ["sqlite", "runtime-tokio-native-tls"] }
 surrealdb = { version = "2.3.5", features = ["kv-mem"] }
 futures = "0.3.31"
+os_info = "3.12.0"
 # pdfium-render = { version = "0.8.33", features = ["pdfium-bundled"] }
 # tokio-tungstenite = "0.27.0"
 # rusqlite = "0.36.0"

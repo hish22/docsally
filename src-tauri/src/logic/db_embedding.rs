@@ -12,9 +12,14 @@ use surrealdb::engine::any::Any;
 fn chunk_text(text: &str, chunk_size: usize, overlap: usize) -> Vec<String> {
     let mut chunks = Vec::new();
     let mut start = 0;
-
     while start < text.len() {
-        let end = (start + chunk_size).min(text.len());
+        let mut end = (start + chunk_size).min(text.len());
+        while !text.is_char_boundary(end) {
+            end = end - 1;
+        }
+        while !text.is_char_boundary(start) && start != 0 {
+            start = start - 1;
+        }
         chunks.push(text[start..end].to_string());
         start += chunk_size - overlap;
     }
