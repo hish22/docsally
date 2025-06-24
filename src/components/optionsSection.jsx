@@ -8,9 +8,15 @@ import gemma3 from "./../assets/icons/models/gemma3.png";
 import llama4 from"./../assets/icons/models/llama4.png";
 import qwen2_5vl from "./../assets/icons/models/qwen2.5vl.png";
 import createNomicEmbedTextModel from "../util/installNomicEmbedText";
+import specificOsStyle from "../util/osSpecificStyle";
 import { useEffect, useState } from "react";
 
 export default function OptionsSection({setOllama,ollamaList,setSelectedModel}) {
+
+    useEffect(() => {
+        // Apply specific OS style.
+        specificOsStyle();
+    },[]);
 
     const [selected,setSelected] = useState("");
 
