@@ -3,7 +3,7 @@ import { pdfjs } from "react-pdf";
 import { invoke } from "@tauri-apps/api/core";
 import nomicStatus from "./util/NomicEmbedStates";
 import UpperSection from "./components/upperSection";
-import OptionsSection from "./components/OptionsSection";
+import OptionsSection from "./components/optionsSection";
 
 import "./App.css";
 import { listen } from "@tauri-apps/api/event";

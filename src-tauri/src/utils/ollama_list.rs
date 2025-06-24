@@ -2,7 +2,7 @@ use std::process::Command;
 
 #[tauri::command]
 pub fn ollama_list() -> Vec<String> {
-    let cmd = Command::new("powershell")
+    let cmd = Command::new(cmd_type())
         .args(["/C", "ollama list"])
         .output()
         .expect("failed to execute cmd process");
@@ -17,4 +17,13 @@ pub fn ollama_list() -> Vec<String> {
         }
     }
     return models;
+}
+
+fn cmd_type() -> String {
+    let os = os_info::get();
+    match os.os_type() {
+        os_info::Type::Windows => "powershell".to_string(),
+        os_info::Type::Ubuntu => "bash".to_string(),
+        _ => "Unknown".to_string()
+    }
 }
