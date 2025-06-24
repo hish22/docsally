@@ -3,7 +3,7 @@ import ChatResponse from "./chatResponse";
 import CurrentChats from "./currentChats";
 import sidebar from "./../assets/icons/app/sidebar.svg";
 import { useState } from "react";
-export default function ChatSection({ollama}) {
+export default function ChatSection({ollama,disableChat}) {
 
     const [sidebarStatus,setSidebarStatus] = useState(0);
 
@@ -16,7 +16,7 @@ export default function ChatSection({ollama}) {
                     <p></p>
                     <img src={sidebar} width={35} id="chat-sidebar" onClick={() => setSidebarStatus(1 - sidebarStatus)}/>
                 </div>
-                <ChatResponse check={sidebarStatus} ollama={ollama}/>
+                <ChatResponse check={sidebarStatus} ollama={ollama} disableChat={disableChat}/>
             </div>
         </div>
     );

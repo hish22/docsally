@@ -16,8 +16,20 @@ export default function DocumentExport(props) {
     function onDocumentLoadSuccess({numPages}) {
         setNumPages(numPages);
     }
+
+    function handleTextSelection() {
+    const selection = window.getSelection();
+    const text = selection?.toString();
+
+    if (text?.trim()) {
+        console.log("Selected text:", text);
+        // You can now trigger something, store it, highlight it, etc.
+    }
+    }
+
     return (
         <div style={{ overflowY: 'scroll', height: '90vh', padding: '1rem'  }}>
+            <div onMouseUp={handleTextSelection}>
             <Document file={props.docData} onLoadSuccess={onDocumentLoadSuccess} options={options}>
                 {Array.from(new Array(numPages), (el, index) => (
                 <div key={`page_${index + 1}`} style={{ marginBottom: '2rem' }}>
@@ -25,6 +37,7 @@ export default function DocumentExport(props) {
                 </div>
                 ))}
             </Document>
+            </div>
             <p style={{position:'fixed', top:'35pt'}}>
                 Pages {numPages}
             </p>

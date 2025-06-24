@@ -6,22 +6,23 @@ import UpperSection from "./components/upperSection";
 import OptionsSection from "./components/OptionsSection";
 
 import "./App.css";
+import { listen } from "@tauri-apps/api/event";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.mjs',
   import.meta.url,
 ).toString();
 
-// Install nomic-embed-text
 function App() {
 
-  const [nomicFound,setNomicFound] = useState(nomicStatus());
+  // const [nomicFound,setNomicFound] = useState(nomicStatus());
+  const [selectedModel,setSelectedModel] = useState("");
   const [ollama,setOllama] = useState("");
   const [ollamaList, setOllamaList] = useState([]);
 
   useEffect(() => {
     const fetchList = async () => {
-      await invoke('ollama_list').then((list) => {setOllamaList(list); console.log(list)});
+      invoke('ollama_list').then((list) => {setOllamaList(list);});
     }
     fetchList();
   },[]);
@@ -29,8 +30,8 @@ function App() {
   return (
     <>
     <section id="main-section">
-      <OptionsSection setOllama={setOllama} ollamaList={ollamaList} nomicState={nomicFound}></OptionsSection>
-      <UpperSection ollama={ollama}></UpperSection>
+      <OptionsSection setOllama={setOllama} ollamaList={ollamaList} setSelectedModel={setSelectedModel}></OptionsSection>
+      <UpperSection ollama={ollama} selectedModel={selectedModel}></UpperSection>
     </section>
     </>
   )

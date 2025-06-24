@@ -47,6 +47,7 @@ body {
 
 #options-section #ollama-select {
   margin-right: 10pt;
+  margin-left: 10pt;
   font-size: 15pt;
   background-color: #3a3a3a;
   color: white;
@@ -100,10 +101,45 @@ body {
   opacity: 0.8;
 }
 
+#ollamaIcon {
+  background-color: aliceblue;
+  border-radius: 50pt;
+  padding: 10pt;
+}
+
+/* Style the scroll bar */
+
+::-webkit-scrollbar {
+  width: 15px;
+  height: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background: #444444;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar:hover {
+  opacity: 0.4;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #272727;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(32, 32, 32);
+}
+
 /* Chat Section */
 
-.chat-container {
-  background-color: #572020;
+#chat-container {
+  /* background-color: #2c1c1c; */
+  overflow-y: scroll;
+  height: 80vh;
+  width: 60vh;
+  scroll-snap-type: mandatory;
 }
 
 #parts-of-chats {
@@ -141,8 +177,9 @@ body {
 .chat-box {
   max-width: 70%;
   padding: 10px 15px;
+  margin-bottom: 20px;
   border-radius: 10px;
-  margin: 8px 0;
+  margin: 8px 5px;
   clear: both;
 }
 .left {

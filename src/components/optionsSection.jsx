@@ -10,7 +10,7 @@ import qwen2_5vl from "./../assets/icons/models/qwen2.5vl.png";
 import createNomicEmbedTextModel from "../util/installNomicEmbedText";
 import { useEffect, useState } from "react";
 
-export default function OptionsSection({setOllama,ollamaList,nomicState}) {
+export default function OptionsSection({setOllama,ollamaList,setSelectedModel}) {
 
     const [selected,setSelected] = useState("");
 
@@ -40,17 +40,19 @@ export default function OptionsSection({setOllama,ollamaList,nomicState}) {
         
     return (
         <>
-            <section id="options-section" className="flex">
-                {filteredIcon.map((item,index) => (
-                    <img key={index} src={item.icon} width={30}/>
-                ))} 
-                <select name="ollamas" id="ollama-select" onChange={e=>{setOllama(e.target.value); setSelected(e.target.value)}}>
-                <option value={""}>Select Model</option>
-                {ollamaList.map((item,index) => (
-                    <option key={index} value={item}>{item}</option>
-                ))}
-                </select>
-                {nomicState ? <button onClick={createNomicEmbedTextModel}>Install nomic-embed-text</button> : null}
+            <section id="options-section">
+                <div className="flex">
+                    {filteredIcon.map((item,index) => (
+                        <img key={index} src={item.icon} width={30}/>
+                    ))}
+                    <select name="ollamas" id="ollama-select" onChange={e=>{setOllama(e.target.value); setSelected(e.target.value); setSelectedModel(e.target.value)}}>
+                    <option value={""}>Select Model</option>
+                    {ollamaList.filter((item) => item != "nomic-embed-text:latest").map((item,index) => (
+                        <option key={index} value={item}>{item}</option>
+                    ))}
+                    </select>
+                </div>
+                {/* {nomicState ? <button onClick={createNomicEmbedTextModel}>Install nomic-embed-text</button> : null} */}
                 {/* {console.log(nomicState)} */}
             </section>
         </>
