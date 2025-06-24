@@ -4,9 +4,12 @@ import { invoke } from "@tauri-apps/api/core";
 import nomicStatus from "./util/NomicEmbedStates";
 import UpperSection from "./components/upperSection";
 import OptionsSection from "./components/optionsSection";
+import specificOsStyle from "./util/osSpecificStyle";
 
 import "./App.css";
-import { listen } from "@tauri-apps/api/event";
+
+// Apply specific OS style.
+specificOsStyle();
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.mjs',
