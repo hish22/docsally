@@ -4,8 +4,11 @@ import { invoke } from "@tauri-apps/api/core";
 import nomicStatus from "./util/NomicEmbedStates";
 import UpperSection from "./components/upperSection";
 import OptionsSection from "./components/optionsSection";
-
+import checkSystem from "./util/checkSystem";
 import "./App.css";
+
+// Check if the platform is not out of bound.
+checkSystem();
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.mjs',
