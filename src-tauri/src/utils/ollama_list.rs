@@ -1,4 +1,4 @@
-use std::process::{exit, Command};
+use std::process::Command;
 
 #[tauri::command]
 pub fn ollama_list() -> Vec<String> {

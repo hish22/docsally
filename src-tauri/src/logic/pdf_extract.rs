@@ -1,7 +1,6 @@
 use pdfium_render::prelude::*;
 
 pub fn extract_pdf(filepath: String) -> Result<String, String> {
-    println!("{}", handle_os());
     let lib = Pdfium::bind_to_library(handle_os());
     let pdfium = Pdfium::new(lib.map_err(|e| e.to_string())?);
     let document = pdfium
