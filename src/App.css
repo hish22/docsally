@@ -10,6 +10,16 @@ body {
   padding: 0px;
 }
 
+/* Platform based */
+
+.linux-ollama-select {
+  color: black;
+}
+
+.windows-ollama-select {
+  color: white;
+}
+
 /* General */
 
 .flex {
@@ -50,7 +60,7 @@ body {
   margin-left: 10pt;
   font-size: 15pt;
   background-color: #3a3a3a;
-  color: white;
+  /* color: white; */
   border-radius: 5pt;
 }
 

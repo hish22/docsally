@@ -1,9 +1,11 @@
-use std::process::Command;
+use std::process::{exit, Command};
 
 #[tauri::command]
 pub fn ollama_list() -> Vec<String> {
-    let cmd = Command::new(cmd_type())
-        .args(["/C", "ollama list"])
+    let opitions = cmd_type();
+
+    let cmd = Command::new(&opitions[0])
+        .args([&opitions[1], "ollama list"])
         .output()
         .expect("failed to execute cmd process");
 
@@ -19,11 +21,21 @@ pub fn ollama_list() -> Vec<String> {
     return models;
 }
 
-fn cmd_type() -> String {
+fn cmd_type() -> Vec<String> {
     let os = os_info::get();
+    let mut args = vec![];
     match os.os_type() {
-        os_info::Type::Windows => "powershell".to_string(),
-        os_info::Type::Ubuntu => "bash".to_string(),
-        _ => "Unknown".to_string()
+        os_info::Type::Windows => {
+            args.push("powershell".to_string());
+            args.push("/C".to_string());
+        }
+        os_info::Type::Ubuntu => {
+            args.push("bash".to_string());
+            args.push("-c".to_string());
+        }
+        _ => {
+            args.push("unknown".to_string());
+        }
     }
+    args
 }
