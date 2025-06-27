@@ -15,7 +15,6 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   import.meta.url,
 ).toString();
 
-const store = await load("settings.json",{ autoSave: false });
 
 function App() {
 
@@ -30,6 +29,7 @@ function App() {
   useEffect(() => {
     const fetchNomicData = async () => {
       try{
+        const store = await load("settings.json",{ autoSave: false });
         const v = await store.get("installed_nomic");
         setInstallNote(v === undefined ? false : true );
       } catch (err){
