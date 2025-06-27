@@ -9,7 +9,6 @@ import llama4 from"./../assets/icons/models/llama4.png";
 import phi_4 from "./../assets/icons/models/Microsoft_icon.svg.png";
 import mistral from "./../assets/icons/models/mistral-color.svg";
 import olmo from "./../assets/icons/models/olmo.png";
-import createNomicEmbedTextModel from "../util/installNomicEmbedText";
 import specificOsStyle from "../util/osSpecificStyle";
 import { useEffect, useState } from "react";
 

@@ -6,8 +6,6 @@ import UpperSection from "./components/upperSection";
 import OptionsSection from "./components/optionsSection";
 import checkSystem from "./util/checkSystem";
 import "./App.css";
-import InstallDepSection from "./components/installDepSection";
-import createNomicEmbedTextModel from "./util/installNomicEmbedText";
 import { load } from "@tauri-apps/plugin-store";
 // Check if the platform is not out of bound.
 checkSystem();
