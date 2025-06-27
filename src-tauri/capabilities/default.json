@@ -10,6 +10,8 @@
     "opener:default",
     "dialog:default",
     "fs:default",
-    "process:default"
+    "process:default",
+    "process:default",
+    "store:default"
   ]
 }

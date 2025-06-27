@@ -36,6 +36,8 @@ surrealdb = { version = "2.3.5", features = ["kv-mem"] }
 futures = "0.3.31"
 os_info = "3.12.0"
 tauri-plugin-process = "2"
+tokio-stream = "0.1"
+tauri-plugin-store = "2"
 # pdfium-render = { version = "0.8.33", features = ["pdfium-bundled"] }
 # tokio-tungstenite = "0.27.0"
 # rusqlite = "0.36.0"

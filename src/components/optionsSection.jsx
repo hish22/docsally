@@ -13,7 +13,7 @@ import createNomicEmbedTextModel from "../util/installNomicEmbedText";
 import specificOsStyle from "../util/osSpecificStyle";
 import { useEffect, useState } from "react";
 
-export default function OptionsSection({setOllama,ollamaList,setSelectedModel}) {
+export default function OptionsSection({installNote,setOllama,ollamaList,setSelectedModel,disableModelSelection}) {
 
     useEffect(() => {
         // Apply specific OS style.
@@ -62,12 +62,15 @@ export default function OptionsSection({setOllama,ollamaList,setSelectedModel}) 
                     {splitedList[0].trim() ? filteredIcon.map((item,index) => (
                         <img key={index} src={item.icon} width={30}/>
                     )): null}
-                    <select name="ollamas" id="ollama-select" onChange={e=>{setOllama(e.target.value); setSelected(e.target.value); setSelectedModel(e.target.value)}}>
+                    <select name="ollamas" id="ollama-select"
+                    disabled={disableModelSelection}
+                     onChange={e=>{setOllama(e.target.value); setSelected(e.target.value); setSelectedModel(e.target.value)}}>
                     <option value={""}>Select Model</option>
                     {ollamaList.filter((item) => item != "nomic-embed-text:latest").map((item,index) => (
                         <option key={index} value={item}>{item}</option>
                     ))}
                     </select>
+                    {installNote ? <p>installing nomic-embed-text..</p> : null}
                 </div>
                 {/* {nomicState ? <button onClick={createNomicEmbedTextModel}>Install nomic-embed-text</button> : null} */}
                 {/* {console.log(nomicState)} */}

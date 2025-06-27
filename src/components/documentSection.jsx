@@ -2,12 +2,12 @@ import "./../App.css";
 import { open } from "@tauri-apps/plugin-dialog";
 import { readFile } from "@tauri-apps/plugin-fs";
 import DocumentExport from "./documentExport";
-import { useState, useMemo, createContext } from "react";
+import { useState, useMemo, createContext, useEffect } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import loading from "./../assets/icons/animated/tube-spinner.svg";
 import ollamaIcon from "./../assets/icons/tools/ollama.svg";
 
-export default function DocumentSection({ollama,setDisableChat,selectedModel}) {
+export default function DocumentSection({ollama,setDisableChat,selectedModel,setDisableModelSelection}) {
 
     const [uploadedFile,setUploadedFile] = useState(null);
     const [fileContent,setFileContent] = useState(null);
@@ -24,6 +24,7 @@ export default function DocumentSection({ollama,setDisableChat,selectedModel}) {
             await setUploadedFile(path);
             const file = path;
             const llm = ollama;
+            setDisableModelSelection(true);
             invoke('register_pdf',{file: file, llm: llm}).then((payload) => {
                 setLoadedDocument(() => payload === "Chat service initialized successfully" ? true : false);
                 setDisableChat(false);
@@ -37,6 +38,13 @@ export default function DocumentSection({ollama,setDisableChat,selectedModel}) {
             console.log(err);
         });
     }
+
+    useEffect(() => {
+        if(!loadedDocument) {
+            setUploadedFile(null);
+        }
+    },[loadedDocument])
+
     // No recreation or recompute until the dep changes
     const memoizedFile = useMemo(() => fileContent ? { data: fileContent } : null, [fileContent]);
 

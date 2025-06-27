@@ -51,7 +51,7 @@ body {
 
 #options-section {
   background-color: rgb(49, 47, 47);
-  padding: 10px;
+  padding: 8pt;
   text-align: left;
 }
 
@@ -115,6 +115,23 @@ body {
   background-color: aliceblue;
   border-radius: 50pt;
   padding: 10pt;
+}
+
+#document-Wrapper {
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: row;
+  height: 90vh;
+  padding: 1rem;
+}
+
+#document-Wrapper p {
+  position: fixed;
+  top: 4.9vh;
+}
+
+#document-Wrapper:focus {
+  outline: none;
 }
 
 /* Style the scroll bar */
