@@ -1,4 +1,3 @@
-import { invoke } from "@tauri-apps/api/core";
 import { load } from "@tauri-apps/plugin-store";
 import createNomicEmbedTextModel from "./installNomicEmbedText";
 const store = await load("settings.json",{ autoSave: false });

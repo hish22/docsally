@@ -4,7 +4,6 @@ import { invoke } from "@tauri-apps/api/core";
 import Markdown from "react-markdown";
 import { listen } from "@tauri-apps/api/event";
 import loading from "./../assets/icons/animated/fade-stagger-squares.svg";
-import DisableTypeContext from "./documentSection";
 
 export default function ChatResponse(props) {
     const [response, setResponse] = useState([]);

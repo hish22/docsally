@@ -1,6 +1,5 @@
 import "./../App.css";
 import ChatResponse from "./chatResponse";
-import CurrentChats from "./currentChats";
 import sidebar from "./../assets/icons/app/sidebar.svg";
 import { useState } from "react";
 export default function ChatSection({ollama,disableChat}) {
