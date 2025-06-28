@@ -12,7 +12,7 @@ import olmo from "./../assets/icons/models/olmo.png";
 import specificOsStyle from "../util/osSpecificStyle";
 import { useEffect, useState } from "react";
 
-export default function OptionsSection({installNote,setOllama,ollamaList,setSelectedModel,disableModelSelection}) {
+export default function OptionsSection({pageNumber,installNote,setOllama,ollamaList,setSelectedModel,disableModelSelection}) {
 
     useEffect(() => {
         // Apply specific OS style.
@@ -59,7 +59,7 @@ export default function OptionsSection({installNote,setOllama,ollamaList,setSele
             <section id="options-section">
                 <div className="flex">
                     {splitedList[0].trim() ? filteredIcon.map((item,index) => (
-                        <img key={index} src={item.icon} width={30}/>
+                        <img key={index} src={item.icon} width={40}/>
                     )): null}
                     <select name="ollamas" id="ollama-select"
                     disabled={disableModelSelection}
@@ -70,6 +70,9 @@ export default function OptionsSection({installNote,setOllama,ollamaList,setSele
                     ))}
                     </select>
                     {installNote ? <p>installing nomic-embed-text..</p> : null}
+                </div>
+                <div>
+                    <p>{pageNumber}</p>
                 </div>
                 {/* {nomicState ? <button onClick={createNomicEmbedTextModel}>Install nomic-embed-text</button> : null} */}
                 {/* {console.log(nomicState)} */}

@@ -7,7 +7,7 @@ import { invoke } from "@tauri-apps/api/core";
 import loading from "./../assets/icons/animated/tube-spinner.svg";
 import ollamaIcon from "./../assets/icons/tools/ollama.svg";
 
-export default function DocumentSection({ollama,setDisableChat,selectedModel,setDisableModelSelection}) {
+export default function DocumentSection({setPageNumber,ollama,setDisableChat,selectedModel,setDisableModelSelection}) {
 
     const [uploadedFile,setUploadedFile] = useState(null);
     const [fileContent,setFileContent] = useState(null);
@@ -50,7 +50,7 @@ export default function DocumentSection({ollama,setDisableChat,selectedModel,set
 
     return(
         <div id="document-div">
-            {uploadedFile && loadedDocument ? <DocumentExport docData={memoizedFile}/> : null}
+            {uploadedFile && loadedDocument ? <DocumentExport setPageNumber={setPageNumber} docData={memoizedFile}/> : null}
             {uploadedFile && !loadedDocument ? <img src={loading} width={100}/> : null}
             <form id="upload-form">
                 {!uploadedFile && selectedModel ? (

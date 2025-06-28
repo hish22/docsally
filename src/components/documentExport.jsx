@@ -16,6 +16,7 @@ export default function DocumentExport(props) {
 
     function onDocumentLoadSuccess({numPages}) {
         setNumPages(numPages);
+        props.setPageNumber(numPages+" pages");
     }
 
     function handleTextSelection() {
@@ -45,9 +46,6 @@ export default function DocumentExport(props) {
 
     return (
         <div id="document-Wrapper" ref={DocRef} onKeyDown={increaseOrDecreaseScale} tabIndex={0}>
-            <p>
-                Pages {numPages}
-            </p>
             <div onMouseUp={handleTextSelection} options={options}>
             <Document file={props.docData} onLoadSuccess={onDocumentLoadSuccess}>
                 {Array.from(new Array(numPages), (el, index) => (

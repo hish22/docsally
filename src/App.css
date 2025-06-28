@@ -53,6 +53,13 @@ body {
   background-color: rgb(49, 47, 47);
   padding: 8pt;
   text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#options-section div p {
+  font-size: 14px;
 }
 
 #options-section #ollama-select {
@@ -119,16 +126,14 @@ body {
 
 #document-Wrapper {
   overflow-y: scroll;
-  display: flex;
-  flex-direction: row;
-  height: 90vh;
+  height: 85vh;
   padding: 1rem;
 }
 
-#document-Wrapper p {
+/* #document-Wrapper p {
   position: fixed;
-  top: 4.9vh;
-}
+  top: 45pt;
+} */
 
 #document-Wrapper:focus {
   outline: none;
