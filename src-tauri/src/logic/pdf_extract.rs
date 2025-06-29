@@ -27,9 +27,9 @@ fn handle_os() -> String {
             _ => "Unknown".to_string(),
         },
         os_info::Type::Ubuntu => match os.architecture().unwrap() {
-            "x86_64" => "lib/dll/linux/glibc/x86_64/libpdfium.so".to_string(),
-            "x86" => "lib/dll/linux/glibc/x86/libpdfium.so".to_string(),
-            "arm64" => "lib/dll/linux/glibc/arm64/libpdfium.so".to_string(),
+            "x86_64" => "/usr/lib/docsally/lib/dll/linux/glibc/x86_64/libpdfium.so".to_string(),
+            "x86" => "/usr/lib/docsally/lib/dll/linux/glibc/x86/libpdfium.so".to_string(),
+            "arm64" => "/usr/lib/docsally/lib/dll/linux/glibc/arm64/libpdfium.so".to_string(),
             _ => "Unknown".to_string(),
         },
         _ => "Unknown".to_string(),
