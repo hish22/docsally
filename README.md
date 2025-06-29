@@ -59,7 +59,7 @@ to start the app type:
 docsally
 ```
 
-## Basic usage
+## 🎲 Basic usage
 
 - to zoom-in use (ctrl)
 - to zoom-out use (alt)
