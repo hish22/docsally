@@ -5,7 +5,7 @@
 </p>
 
 ![Apache License](https://img.shields.io/badge/license-Apache%202.0-blue)
-![GitHub Release](https://img.shields.io/github/v/release/hish22/docsally)
+![GitHub Release]([https://img.shields.io/github/v/release/hish22/docsally](https://img.shields.io/github/v/release/hish22/docsally))
 
 > [!NOTE]
 > Docsally now in it's alpha version.
