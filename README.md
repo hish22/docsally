@@ -8,7 +8,7 @@
 ![GitHub Release](https://img.shields.io/github/v/release/hish22/docsally)
 
 > [!NOTE]
-> Docsally now in it's alpha version.
+> Docsally now in its alpha version.
 
 ## 📋 Prerequisites
 
