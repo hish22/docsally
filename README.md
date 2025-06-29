@@ -51,7 +51,7 @@ then run this command to install it:
 ```bash
 sudo dpkg -i <package-location>
 ```
-** ```bash<package-location>``` means the location of the package, example of a location /example/download/docsally_0.1.0_amd64.deb**
+```bash<package-location>``` means the location of the package, example of a location /example/download/docsally_0.1.0_amd64.deb
 
 to start the app type:
 
