@@ -8,7 +8,7 @@
 ![GitHub Release](https://img.shields.io/github/v/release/hish22/docsally)
 
 > [!NOTE]
-> Docsally now in it's alpha version.
+> Docsally now in its alpha version.
 
 ## 📋 Prerequisites
 
@@ -52,14 +52,12 @@ then run this command to install it:
 sudo dpkg -i <package-location>
 ```
 
+`<package-location>` means the location of the package, example of a location /example/download/docsally_0.1.0_amd64.deb
+
 to start the app type:
 
 ```bash
 docsally
-```
-
-```
-test
 ```
 
 > <package-location> means the location of the package, example of a location /example/download/docsally_0.1.0_amd64.deb
