@@ -1,5 +1,17 @@
+//! PDF text extraction functionality
+//! 
+//! This module provides utilities for extracting text content from PDF files
+//! using the pdfium library with cross-platform support.
+
 use pdfium_render::prelude::*;
 
+/// Extracts text content from a PDF file
+/// 
+/// # Arguments
+/// * `filepath` - Path to the PDF file to extract text from
+/// 
+/// # Returns
+/// Extracted text content or error message
 pub fn extract_pdf(filepath: String) -> Result<String, String> {
     let lib = Pdfium::bind_to_library(handle_os());
     let pdfium = Pdfium::new(lib.map_err(|e| e.to_string())?);
@@ -17,6 +29,7 @@ pub fn extract_pdf(filepath: String) -> Result<String, String> {
     Ok(text)
 }
 
+/// Determines the correct pdfium library path based on the operating system
 fn handle_os() -> String {
     let os = os_info::get();
     match os.os_type() {

@@ -60,7 +60,7 @@ export default function DocumentSection({setPageNumber,ollama,setDisableChat,sel
                         <p id="documentTypeText"> ☺ Content to be discussed about</p>
                     </>
                 ) : !uploadedFile ? <>
-                        <img src={ollamaIcon} width={100} id="ollamaIcon"/>
+                        <img className="w-25 mx-auto" src={ollamaIcon}  id="ollamaIcon"/>
                         <p id="documentTypeText"> Select Model To Start A Conversation.</p>
                     </> 
                     : null

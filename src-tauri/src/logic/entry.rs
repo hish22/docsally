@@ -1,3 +1,14 @@
+//! Entry point for chat functionality with PDF document processing
+//! 
+//! This module provides the main chat service that processes PDF documents,
+//! creates embeddings, and enables conversational retrieval using Ollama LLMs.
+//! 
+//! The workflow is:
+//! 1. PDF files are processed and text is extracted
+//! 2. Text is embedded using Ollama embeddings
+//! 3. Embeddings are stored in a vector database
+//! 4. Questions are answered using conversational retrieval over the stored embeddings
+
 use futures::stream::Stream;
 use futures::stream::StreamExt;
 use langchain_rust::chain::ChainError;
@@ -13,6 +24,10 @@ use tauri::{AppHandle, Emitter};
 
 use std::sync::{Arc, Mutex};
 
+/// Application state containing the chat service
+/// 
+/// Stores the initialized chat service in a thread-safe manner.
+/// The service is wrapped in Arc<Mutex<>> for shared ownership and thread safety.
 #[derive(Default)]
 pub struct AppState {
     chat_service: Mutex<Option<Arc<OllamaChat>>>,
@@ -22,11 +37,25 @@ use crate::logic::{
     db_embedding::db_embedding, ollama_embeddings::ollama_embedder, pdf_extract::extract_pdf,
 };
 
+/// Chat service that handles PDF document processing and question answering
+/// 
+/// Contains a conversational retriever chain that combines:
+/// - PDF text extraction and embedding
+/// - Vector similarity search for relevant context
+/// - LLM-based question answering with retrieved context
 pub struct OllamaChat {
     chain: ConversationalRetrieverChain,
 }
 
 impl OllamaChat {
+    /// Creates a new chat service by processing a PDF file and setting up the retrieval chain
+    /// 
+    /// # Arguments
+    /// * `file` - Path to the PDF file to process
+    /// * `llm_type` - Ollama model name to use for question answering
+    /// 
+    /// # Returns
+    /// Returns a configured chat service ready for question answering
     pub async fn new(file: String, llm_type: String) -> Result<Self, Box<dyn std::error::Error>> {
         let content = extract_pdf(file);
         let store = db_embedding(ollama_embedder(), content.unwrap()).await;
@@ -43,6 +72,13 @@ impl OllamaChat {
         Ok(Self { chain })
     }
 
+    /// Processes a question and returns a stream of responses
+    /// 
+    /// # Arguments
+    /// * `question` - The user's question to be answered
+    /// 
+    /// # Returns
+    /// Returns a stream of response chunks that can be consumed asynchronously
     pub async fn ask_question(
         &self,
         question: &str,
@@ -60,6 +96,18 @@ impl OllamaChat {
     }
 }
 
+/// Tauri command to register a PDF file and initialize the chat service
+/// 
+/// This command processes the PDF file, creates embeddings, and stores them
+/// in the application state for later use in question answering.
+/// 
+/// # Arguments
+/// * `file` - Path to the PDF file to process
+/// * `llm` - Ollama model name for the LLM
+/// * `state` - Application state to store the chat service
+/// 
+/// # Returns
+/// Success message or error description
 #[tauri::command]
 pub async fn register_pdf(
     file: String,
@@ -77,6 +125,19 @@ pub async fn register_pdf(
     Ok("Chat service initialized successfully".to_string())
 }
 
+/// Tauri command to ask a question and stream the response back to the frontend
+/// 
+/// This command processes a user question using the initialized chat service
+/// and streams the response back to the frontend via Tauri events.
+/// 
+/// # Arguments
+/// * `question` - The user's question to be answered
+/// * `state` - Application state containing the chat service
+/// * `app` - Tauri app handle for emitting events
+/// 
+/// # Events Emitted
+/// * `content-stream` - Streams response chunks as they arrive
+/// * `content-stream-end` - Signals the end of the response stream
 #[tauri::command]
 pub async fn ask_question(
     question: String,
