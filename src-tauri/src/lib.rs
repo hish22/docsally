@@ -1,10 +1,10 @@
 use logic::entry::ask_question;
 use logic::entry::register_pdf;
 use logic::entry::AppState;
-use utils::check_nomic::check_nomic;
+// use utils::check_nomic::check_nomic;
 use utils::check_system::check_system;
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
-use utils::install_nomic_embed_text::install_nemt;
+// use utils::install_nomic_embed_text::install_nemt;
 use utils::ollama_list::ollama_list;
 mod logic;
 mod utils;
@@ -17,10 +17,10 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             check_system,
             ollama_list,
-            install_nemt,
+            // install_nemt,
             register_pdf,
             ask_question,
-            check_nomic
+            // check_nomic
         ])
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_dialog::init())

@@ -19,5 +19,5 @@ pub fn ollama_list() -> Vec<String> {
             models.push(model_name.get(0).unwrap().to_string());
         }
     }
-    return models;
+    models
 }
