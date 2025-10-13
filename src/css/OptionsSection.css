@@ -1,7 +1,8 @@
 /* Options section */
 
 #options-section {
-  background-color: rgb(49, 47, 47);
+  background-color: rgb(26, 25, 25);
+  border-bottom: rgb(44, 44, 44) solid 1px;
   padding: 4pt;
   text-align: left;
   display: flex;

@@ -20,6 +20,7 @@ import { load } from "@tauri-apps/plugin-store";
 
 // Import Settings CSS
 import "./pages/settings/css/Settings.css";
+import ModelSection from "./components/modelSection";
 
 // Check if the platform is not out of bound.
 checkSystem();
@@ -37,6 +38,7 @@ function App() {
   const [ollamaList, setOllamaList] = useState([]);
   const [disableModelSelection,setDisableModelSelection] = useState(false);
   const [openSettings,setOpenSettings] = useState(false);
+  const [openModels,setOpenModels] = useState(0);
   // const [installNote,setInstallNote] = useState(true);
   const [pageNumber,setPageNumber] = useState(null);
 
@@ -86,13 +88,31 @@ function App() {
   return (
     <>
       <section id="main-page" style={openSettings ? {display: "none"}:{display:"flex"}}  >
-        <OptionsSection pageNumber={pageNumber} setOllama={setOllama} ollamaList={ollamaList} setSelectedModel={setSelectedModel} disableModelSelection={disableModelSelection}></OptionsSection>
-        <UpperSection setPageNumber={setPageNumber} ollama={ollama} selectedModel={selectedModel} setDisableModelSelection={setDisableModelSelection} setOpenSettings={setOpenSettings}></UpperSection>
+        <OptionsSection pageNumber={pageNumber} 
+                        setOllama={setOllama} 
+                        ollamaList={ollamaList} 
+                        setSelectedModel={setSelectedModel} 
+                        disableModelSelection={disableModelSelection}>
+        </OptionsSection>
+        <UpperSection setPageNumber={setPageNumber} 
+                      ollama={ollama} 
+                      selectedModel={selectedModel} 
+                      setDisableModelSelection={setDisableModelSelection} 
+                      setOpenSettings={setOpenSettings} 
+                      setOpenModels={setOpenModels} 
+                      openModels={openModels} 
+                      openSettings={openSettings}>
+        </UpperSection>
       </section>
       <section id="settings-page" style={openSettings ? {display: "block"}:{display:"none"}}>
         <Settings setOpenSettings={setOpenSettings}></Settings>
       </section>
-
+      <section>
+        <ModelSection ollamaList={ollamaList} 
+                      openModels={openModels} 
+                      setSelectedModel={setSelectedModel} 
+                      setOllama={setOllama}/>
+      </section>
     </>
   )
 }

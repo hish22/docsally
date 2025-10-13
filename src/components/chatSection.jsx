@@ -3,10 +3,11 @@ import ChatResponse from "./chatResponse";
 import sidebar from "./../assets/icons/app/sidebar.svg";
 import settingsIcon from "./../assets/icons/app/settings.svg";
 import modelIcon from "./../assets/icons/app/model.png";
-import { useState } from "react";
-export default function ChatSection({ollama,disableChat,setOpenSettings}) {
+import { useEffect, useState } from "react";
+export default function ChatSection({ollama,disableChat,setOpenSettings,setOpenModels,openModels,openSettings}) {
 
     const [sidebarStatus,setSidebarStatus] = useState(0);
+    const [hideOtherIcons,setHideOtherIcons] = useState(1);
 
     return (
         <div id="parts-of-chats">
@@ -14,13 +15,16 @@ export default function ChatSection({ollama,disableChat,setOpenSettings}) {
             <div id="text-chat-div">
                 <div className="flex-between">
                     {/* {sidebarStatus ? <p>{ollama}</p> : null } */}
-                    <img src={sidebar} width={35} id="chat-sidebar" onClick={() => setSidebarStatus(1 - sidebarStatus)}/>
+                    <img src={sidebar} width={35} id="chat-sidebar" onClick={() => {
+                        setSidebarStatus(1 - sidebarStatus)
+                        setHideOtherIcons(1 - hideOtherIcons)
+                    }}/>
                 </div>
                 <div>
-                    <img src={modelIcon} width={35} id="chat-sidebar" className="mt-4"/>
+                    <img src={modelIcon} width={35} id="chat-sidebar" className="mt-4" style={hideOtherIcons ? {display: "block"} : {display: "none"}} onClick={() => setOpenModels(1 - openModels)}/>
                 </div>
                 <div>
-                    <img src={settingsIcon} width={35} id="chat-sidebar" onClick={() => setOpenSettings(true)} className="mt-4"/>
+                    <img src={settingsIcon} width={35} id="chat-sidebar" onClick={() => setOpenSettings(true)} className="mt-4" style={hideOtherIcons ? {display: "block"} : {display: "none"}}/>
                 </div>
                 <ChatResponse check={sidebarStatus} ollama={ollama} disableChat={disableChat}/>
             </div>

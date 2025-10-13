@@ -9,58 +9,59 @@ import llama4 from"./../assets/icons/models/llama4.png";
 import phi_4 from "./../assets/icons/models/Microsoft_icon.svg.png";
 import mistral from "./../assets/icons/models/mistral-color.svg";
 import olmo from "./../assets/icons/models/olmo.png";
-import specificOsStyle from "../util/osSpecificStyle";
+// import specificOsStyle from "../util/osSpecificStyle";
 import { useEffect, useState } from "react";
 
 export default function OptionsSection({pageNumber,setOllama,ollamaList,setSelectedModel,disableModelSelection}) {
 
     useEffect(() => {
         // Apply specific OS style.
-        specificOsStyle();
+        // specificOsStyle();
     },[]);
 
-    const [selected,setSelected] = useState("");
+    // const [selected,setSelected] = useState("");
 
-    const models = [{
-            name: "deepseek",
-            icon: deepseek_r1
-        },{
-            name: "devstral",
-            icon: devstral
-        },{
-            name: "qwen",
-            icon: qwen3
-        },{
-            name: "gemma",
-            icon: gemma3
-        },{
-            name: "llama",
-            icon: llama4
-        },{
-            name: "phi",
-            icon: phi_4
-        },{
-            name: "mistral",
-            icon: mistral
-        },{
-            name: "qwq",
-            icon: qwen3
-        },{
-            name: "olmo",
-            icon: olmo
-        }];
+    // const models = [{
+    //         name: "deepseek",
+    //         icon: deepseek_r1
+    //     },{
+    //         name: "devstral",
+    //         icon: devstral
+    //     },{
+    //         name: "qwen",
+    //         icon: qwen3
+    //     },{
+    //         name: "gemma",
+    //         icon: gemma3
+    //     },{
+    //         name: "llama",
+    //         icon: llama4
+    //     },{
+    //         name: "phi",
+    //         icon: phi_4
+    //     },{
+    //         name: "mistral",
+    //         icon: mistral
+    //     },{
+    //         name: "qwq",
+    //         icon: qwen3
+    //     },{
+    //         name: "olmo",
+    //         icon: olmo
+    //     }];
 
-        const splitedList = selected.split(":");
+        // const splitedList = selected.split(":");
 
-        const filteredIcon = models.filter((item) => splitedList[0].trim().includes(item.name));
+        // const filteredIcon = models.filter((item) => splitedList[0].trim().includes(item.name));
         
     return (
         <>
             <section id="options-section">
-                <div className="flex">
-                    {/* {splitedList[0].trim() ? filteredIcon.map((item,index) => (
+                <p style={{fontSize:"11px"}}>Docsally<span className="m-1">0.2.0v</span></p>
+                {/* <div className="flex">
+                    {splitedList[0].trim() ? filteredIcon.map((item,index) => (
                         <img key={index} src={item.icon} width={40}/>
-                    )): null} */}
+                    )): null}
                     <select name="ollamas" id="ollama-select" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-neutral-500 focus:border-neutral-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                     disabled={disableModelSelection}
                      onChange={e=>{setOllama(e.target.value); setSelected(e.target.value); setSelectedModel(e.target.value)}} >
@@ -69,13 +70,10 @@ export default function OptionsSection({pageNumber,setOllama,ollamaList,setSelec
                         <option key={index} value={item}>{item}</option>
                     ))}
                     </select>
-                    {/* {installNote ? <p>installing nomic-embed-text..</p> : null} */}
-                </div>
+                </div>  */}
                 <div>
                     <p>{pageNumber}</p>
                 </div>
-                {/* {nomicState ? <button onClick={createNomicEmbedTextModel}>Install nomic-embed-text</button> : null} */}
-                {/* {console.log(nomicState)} */}
             </section>
         </>
     );
