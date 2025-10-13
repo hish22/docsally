@@ -1,0 +1,9 @@
+/* Platform based */
+
+.linux-ollama-select {
+  color: black;
+}
+
+.windows-ollama-select {
+  color: white;
+}

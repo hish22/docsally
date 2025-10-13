@@ -1,0 +1,46 @@
+/* Options section */
+
+#options-section {
+  background-color: rgb(49, 47, 47);
+  padding: 4pt;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#options-section div p {
+  font-size: 14px;
+}
+
+#options-section #ollama-select {
+  /* margin-right: 10pt; */
+  /* margin-left: 10pt; */
+  font-size: 15pt;
+  background-color: #3a3a3a;
+  /* color: white; */
+  border-radius: 3pt;
+}
+
+#options-section img {
+  margin: 2pt;
+}
+
+#options-section #ollama-select:focus {
+  outline: none;
+}
+
+#options-section button {
+  margin: 5pt;
+  font-size: 15pt;
+  font-weight: bold;
+  border-radius: 2pt;
+  border: none;
+  background-color: #555555;
+  color: white;
+  cursor: pointer;
+}
+
+#options-section button:hover {
+  opacity: 0.8;
+}

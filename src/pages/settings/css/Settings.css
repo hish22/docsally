@@ -1,0 +1,36 @@
+/* Settings style */
+
+#settings-page {
+  margin: 0px;
+  padding: 0px;
+}
+
+#logo-in-settings {
+  margin: 10px;
+}
+
+#settings-slide {
+  background-color: rgb(26, 25, 25);
+  width: 20%;
+  height: 100vh;
+}
+
+#return-box:hover {
+  opacity: 0.8;
+}
+
+#settings-sections {
+  padding: 0px;
+}
+
+#settings-sections p {
+  text-align: left;
+  font-size: 20px;
+  background-color: var(--color-neutral-900);
+  cursor: pointer;
+  padding: 10px;
+}
+
+#settings-sections p:hover {
+  background-color: var(--color-neutral-800);
+}

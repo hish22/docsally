@@ -1,0 +1,44 @@
+/* Document Section */
+
+#document-div {
+  flex-grow: 2;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#upload-form button {
+  background-color: #303030;
+  color: white;
+  padding: 10pt;
+  border: none;
+  font-size: 15pt;
+  cursor: pointer;
+}
+
+#upload-form button:hover {
+  opacity: 0.8;
+}
+
+#ollamaIcon {
+  background-color: aliceblue;
+  border-radius: 50pt;
+  padding: 10pt;
+}
+
+#document-Wrapper {
+  overflow-y: scroll;
+  height: 85vh;
+  padding: 1rem;
+}
+
+/* #document-Wrapper p {
+  position: fixed;
+  top: 45pt;
+} */
+
+#document-Wrapper:focus {
+  outline: none;
+}

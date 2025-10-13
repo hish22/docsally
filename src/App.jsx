@@ -1,13 +1,26 @@
-import { useEffect, useRef, useState } from "react";
+import {useContext, useEffect, useRef, useState } from "react";
 import { pdfjs } from "react-pdf";
 import { invoke } from "@tauri-apps/api/core";
 import UpperSection from "./components/upperSection";
 import OptionsSection from "./components/optionsSection";
 import checkSystem from "./util/checkSystem";
-import createNomicEmbedTextModel from "./util/installNomicEmbedText";
+
+// Pages Import
+import Settings from "./pages/settings/settingsPage";
+
+// Import APP CSS
 import "./App.css";
+import "./css/PlatformBased.css";
+import "./css/General.css";
+import "./css/MainSection.css";
+import "./css/OptionsSection.css";
+import "./css/DocumentSection.css";
+import "./css/ChatSection.css";
 import { load } from "@tauri-apps/plugin-store";
-import checkNomic from "./util/checkNomicEmbedText";
+
+// Import Settings CSS
+import "./pages/settings/css/Settings.css";
+
 // Check if the platform is not out of bound.
 checkSystem();
 
@@ -23,29 +36,30 @@ function App() {
   const [ollama,setOllama] = useState("");
   const [ollamaList, setOllamaList] = useState([]);
   const [disableModelSelection,setDisableModelSelection] = useState(false);
-  const [installNote,setInstallNote] = useState(true);
+  const [openSettings,setOpenSettings] = useState(false);
+  // const [installNote,setInstallNote] = useState(true);
   const [pageNumber,setPageNumber] = useState(null);
-  
-  useEffect(() => {
-    const fetchNomicData = async () => {
-      try{
-        const status = await checkNomic();
-        console.log(status);
-        setInstallNote(status);
-        if(!status) {
-            const store = await load("settings.json",{ autoSave: false });
-            const installed = await createNomicEmbedTextModel();
-            const status = await store.set("installed_nomic",installed);
-            await store.save();
-            setInstallNote(status);
-        }
-      } catch (err){
-        console.log("Failed to fetch data",err);
-        setInstallNote(false);
-      }
-    }
-    fetchNomicData();
-  },[installNote])
+
+  // useEffect(() => {
+  //   const fetchNomicData = async () => {
+  //     try{
+  //       const status = await checkNomic();
+  //       console.log(status);
+  //       setInstallNote(status);
+  //       if(!status) {
+  //           const store = await load("settings.json",{ autoSave: false });
+  //           const installed = await createNomicEmbedTextModel();
+  //           const status = await store.set("installed_nomic",installed);
+  //           await store.save();
+  //           setInstallNote(status);
+  //       }
+  //     } catch (err){
+  //       console.log("Failed to fetch data",err);
+  //       setInstallNote(false);
+  //     }
+  //   }
+  //   fetchNomicData();
+  // },[installNote])
 
   // useEffect(() => {
   //   if (installedNomic.current) {return;}
@@ -71,10 +85,14 @@ function App() {
 
   return (
     <>
-    <section id="main-section">
-      <OptionsSection pageNumber={pageNumber} installNote={!installNote} setOllama={setOllama} ollamaList={ollamaList} setSelectedModel={setSelectedModel} disableModelSelection={disableModelSelection}></OptionsSection>
-      <UpperSection setPageNumber={setPageNumber} ollama={ollama} selectedModel={selectedModel} setDisableModelSelection={setDisableModelSelection}></UpperSection>
-    </section>
+      <section id="main-page" style={openSettings ? {display: "none"}:{display:"flex"}}  >
+        <OptionsSection pageNumber={pageNumber} setOllama={setOllama} ollamaList={ollamaList} setSelectedModel={setSelectedModel} disableModelSelection={disableModelSelection}></OptionsSection>
+        <UpperSection setPageNumber={setPageNumber} ollama={ollama} selectedModel={selectedModel} setDisableModelSelection={setDisableModelSelection} setOpenSettings={setOpenSettings}></UpperSection>
+      </section>
+      <section id="settings-page" style={openSettings ? {display: "block"}:{display:"none"}}>
+        <Settings setOpenSettings={setOpenSettings}></Settings>
+      </section>
+
     </>
   )
 }

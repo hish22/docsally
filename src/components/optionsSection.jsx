@@ -12,7 +12,7 @@ import olmo from "./../assets/icons/models/olmo.png";
 import specificOsStyle from "../util/osSpecificStyle";
 import { useEffect, useState } from "react";
 
-export default function OptionsSection({pageNumber,installNote,setOllama,ollamaList,setSelectedModel,disableModelSelection}) {
+export default function OptionsSection({pageNumber,setOllama,ollamaList,setSelectedModel,disableModelSelection}) {
 
     useEffect(() => {
         // Apply specific OS style.
@@ -58,18 +58,18 @@ export default function OptionsSection({pageNumber,installNote,setOllama,ollamaL
         <>
             <section id="options-section">
                 <div className="flex">
-                    {splitedList[0].trim() ? filteredIcon.map((item,index) => (
+                    {/* {splitedList[0].trim() ? filteredIcon.map((item,index) => (
                         <img key={index} src={item.icon} width={40}/>
-                    )): null}
-                    <select name="ollamas" id="ollama-select"
+                    )): null} */}
+                    <select name="ollamas" id="ollama-select" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-neutral-500 focus:border-neutral-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                     disabled={disableModelSelection}
-                     onChange={e=>{setOllama(e.target.value); setSelected(e.target.value); setSelectedModel(e.target.value)}}>
+                     onChange={e=>{setOllama(e.target.value); setSelected(e.target.value); setSelectedModel(e.target.value)}} >
                     <option value={""}>Select Model</option>
                     {ollamaList.filter((item) => item != "nomic-embed-text:latest").map((item,index) => (
                         <option key={index} value={item}>{item}</option>
                     ))}
                     </select>
-                    {installNote ? <p>installing nomic-embed-text..</p> : null}
+                    {/* {installNote ? <p>installing nomic-embed-text..</p> : null} */}
                 </div>
                 <div>
                     <p>{pageNumber}</p>
