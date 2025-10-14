@@ -42,6 +42,9 @@ function App() {
   // const [installNote,setInstallNote] = useState(true);
   const [pageNumber,setPageNumber] = useState(null);
 
+  // Total closing state
+  // const [closeModal,setCloseModal] = useState(false);
+
   // useEffect(() => {
   //   const fetchNomicData = async () => {
   //     try{
@@ -87,7 +90,7 @@ function App() {
 
   return (
     <>
-      <section id="main-page" style={openSettings ? {display: "none"}:{display:"flex"}}  >
+      <section id="main-page" style={openSettings ? {display: "none"}:{display:"flex"}} onClick={() => {openModels ? setOpenModels(0) : null}}>
         <OptionsSection pageNumber={pageNumber} 
                         setOllama={setOllama} 
                         ollamaList={ollamaList} 
@@ -98,6 +101,7 @@ function App() {
                       ollama={ollama} 
                       selectedModel={selectedModel} 
                       setDisableModelSelection={setDisableModelSelection} 
+                      disableModelSelection={disableModelSelection}
                       setOpenSettings={setOpenSettings} 
                       setOpenModels={setOpenModels} 
                       openModels={openModels} 
@@ -111,7 +115,9 @@ function App() {
         <ModelSection ollamaList={ollamaList} 
                       openModels={openModels} 
                       setSelectedModel={setSelectedModel} 
-                      setOllama={setOllama}/>
+                      setOllama={setOllama}
+                      setOpenModels={setOpenModels}
+                      />
       </section>
     </>
   )

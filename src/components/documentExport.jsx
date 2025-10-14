@@ -49,8 +49,9 @@ export default function DocumentExport(props) {
             <div onMouseUp={handleTextSelection} options={options}>
             <Document file={props.docData} onLoadSuccess={onDocumentLoadSuccess}>
                 {Array.from(new Array(numPages), (el, index) => (
-                <div key={`page_${index + 1}`} style={{ marginBottom: '2rem' }}>
+                <div key={`page_${index + 1}`} style={{ marginBottom: '2rem', color:"black", fontSize:"25px"}}>
                     <Page pageNumber={index + 1} width={600} scale={scale} renderTextLayer={false} renderAnnotationLayer={false}/>
+                    {/* renderMode="none" */}
                 </div>
                 ))}
             </Document>
