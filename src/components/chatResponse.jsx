@@ -4,7 +4,7 @@ import { invoke } from "@tauri-apps/api/core";
 import Markdown from "react-markdown";
 import { listen } from "@tauri-apps/api/event";
 import loading from "./../assets/icons/animated/fade-stagger-squares.svg";
-
+import { motion,AnimatePresence } from "motion/react";
 export default function ChatResponse(props) {
     const [response, setResponse] = useState([]);
     const [question, setQuestion] = useState("");
@@ -106,8 +106,15 @@ export default function ChatResponse(props) {
     }, [props.check]);
     return (
         <>
+        <AnimatePresence>
             {isPressed ? (
-                <div id="chat-container">
+                
+                <motion.div 
+                    id="chat-container"
+                    initial={{width:0,height:"80vh"}}
+                    animate={{width: "60vh"}}
+                    exit={{width:0}}
+                >
                     {response.map((item, index) => (
                         item.type === "user" ? 
                             <div className="chat-box left" key={index}>
@@ -134,8 +141,10 @@ export default function ChatResponse(props) {
                     }
 
                     
-                </div>
+                </motion.div>
+                
             ) : null}
+            </AnimatePresence>
             <form className="center" id="chatForm">
                 <textarea 
                     placeholder="Chat..." 

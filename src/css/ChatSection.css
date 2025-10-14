@@ -3,8 +3,8 @@
 #chat-container {
   /* background-color: #2c1c1c; */
   overflow-y: scroll;
-  height: 80vh;
-  width: 60vh;
+  /* height: 80vh;
+  width: 60vh; */
   scroll-snap-type: mandatory;
 }
 

@@ -90,7 +90,7 @@ function App() {
 
   return (
     <>
-      <section id="main-page" style={openSettings ? {display: "none"}:{display:"flex"}} onClick={() => {openModels ? setOpenModels(0) : null}}>
+      <section id="main-page" style={openSettings ? {display: "none"}:{display:"flex"}} onClick={() => {openModels && setOpenModels(0)}}>
         <OptionsSection pageNumber={pageNumber} 
                         setOllama={setOllama} 
                         ollamaList={ollamaList} 
@@ -111,7 +111,7 @@ function App() {
       <section id="settings-page" style={openSettings ? {display: "block"}:{display:"none"}}>
         <Settings setOpenSettings={setOpenSettings}></Settings>
       </section>
-      <section>
+      <section id="models-modal">
         <ModelSection ollamaList={ollamaList} 
                       openModels={openModels} 
                       setSelectedModel={setSelectedModel} 
