@@ -145,10 +145,15 @@ export default function ChatResponse(props) {
                 
             ) : null}
             </AnimatePresence>
-            <form className="center" id="chatForm">
+            <motion.form 
+            className="center" 
+            id="chatForm"
+            initial={{height:0}}
+            whileHover={{height: "12vh"}}
+            >
                 <textarea 
-                    placeholder="Chat..." 
-                    name="chatInput" 
+                    placeholder="Ask your question" 
+                    name="chatInput"
                     onKeyDown={(e) => {
                         addToUserRes(e); 
                         addToChatRes(e);
@@ -157,7 +162,8 @@ export default function ChatResponse(props) {
                     onChange={(e) => setQuestion(e.target.value)}
                     disabled={ isStreaming || (!isStreaming && props.disableChat)}
                 />
-            </form>
+                <p className="fixed bottom-2 right-3 text-gray-400 text-sm bg-neutral-800 px-2 py-1 rounded-xl">{props.ollama != "" ? props.ollama : "No Model"}</p>
+            </motion.form>
         </>
     );
 }
