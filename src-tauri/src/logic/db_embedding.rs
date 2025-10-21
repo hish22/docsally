@@ -1,8 +1,8 @@
 //! Database embedding functionality
-//! 
+//!
 //! This module handles text chunking, embedding generation, and storage
 //! in a SurrealDB vector database for similarity search.
-//! 
+//!
 //! The process involves:
 //! 1. Splitting text into overlapping chunks
 //! 2. Generating embeddings using Ollama
@@ -20,7 +20,7 @@ use langchain_rust::{
 use surrealdb::engine::any::Any;
 
 /// Splits text into overlapping chunks for embedding processing
-/// 
+///
 /// Ensures chunks respect character boundaries to avoid splitting UTF-8 sequences.
 /// Uses overlap to maintain context between adjacent chunks.
 fn chunk_text(text: &str, chunk_size: usize, overlap: usize) -> Vec<String> {
@@ -42,14 +42,14 @@ fn chunk_text(text: &str, chunk_size: usize, overlap: usize) -> Vec<String> {
 }
 
 /// Creates embeddings and stores them in SurrealDB vector database
-/// 
+///
 /// Sets up an in-memory SurrealDB instance, configures the vector store,
 /// chunks the input text, generates embeddings, and stores them for retrieval.
-/// 
+///
 /// # Arguments
 /// * `ollama_embedder` - The embedding model to use for generating vectors
 /// * `doc_data` - Text content to embed and store
-/// 
+///
 /// # Returns
 /// Configured vector store ready for similarity search operations
 pub async fn db_embedding(
