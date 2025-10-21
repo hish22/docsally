@@ -4,7 +4,6 @@ import { invoke } from "@tauri-apps/api/core";
 import UpperSection from "./components/upperSection";
 import OptionsSection from "./components/optionsSection";
 import checkSystem from "./util/checkSystem";
-
 // Pages Import
 import Settings from "./pages/settings/settingsPage";
 

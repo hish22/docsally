@@ -11,7 +11,20 @@
     "dialog:default",
     "fs:default",
     "process:default",
-    "process:default",
-    "store:default"
+    "store:default",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "exec-list-ollama-shell",
+          "cmd": "powershell",
+          "args": [
+            "-Command",
+            "ollama serve"
+          ],
+          "sidecar": false
+        }
+      ]
+    }
   ]
 }
