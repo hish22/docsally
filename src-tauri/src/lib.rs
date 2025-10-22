@@ -6,20 +6,21 @@ use utils::check_system::check_system;
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 // use utils::install_nomic_embed_text::install_nemt;
 use utils::ollama_list::ollama_list;
+mod check_nomic;
+mod install_nomic_embed_text;
 mod logic;
 mod run_ollama;
 mod utils;
-mod check_nomic;
-mod install_nomic_embed_text;
 pub fn run() {
     // Starting ollama.exe process before docsally
     let r = run_ollama::run_ollama();
 
     if r.success() {
-
         let cn = check_nomic::check_nomic();
 
-        if cn.success() {
+        if !cn.success() {
+            install_nomic_embed_text::install_nemt();
+        }
         tauri::Builder::default()
             .plugin(tauri_plugin_shell::init())
             .plugin(tauri_plugin_store::Builder::new().build())
@@ -38,10 +39,6 @@ pub fn run() {
             .plugin(tauri_plugin_opener::init())
             .run(tauri::generate_context!())
             .expect("error while running tauri application");
-        } else {
-            install_nomic_embed_text::install_nemt();
-        }
-
     } else {
         eprintln!("{}", "Failed to find ollama!");
     }
