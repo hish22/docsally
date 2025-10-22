@@ -32,6 +32,7 @@ pub fn extract_pdf(filepath: String) -> Result<String, String> {
 /// Determines the correct pdfium library path based on the operating system
 fn handle_os() -> String {
     let os = os_info::get();
+    let root_dir = std::env::current_dir().unwrap();
     match os.os_type() {
         os_info::Type::Windows => match os.architecture().unwrap() {
             "x86_64" => "lib/dll/windows/x86_64/pdfium.dll".to_string(),
@@ -40,9 +41,9 @@ fn handle_os() -> String {
             _ => "Unknown".to_string(),
         },
         os_info::Type::Ubuntu => match os.architecture().unwrap() {
-            "x86_64" => "/usr/lib/docsally/lib/dll/linux/glibc/x86_64/libpdfium.so".to_string(),
-            "x86" => "/usr/lib/docsally/lib/dll/linux/glibc/x86/libpdfium.so".to_string(),
-            "arm64" => "/usr/lib/docsally/lib/dll/linux/glibc/arm64/libpdfium.so".to_string(),
+            "x86_64" => root_dir.join("lib/dll/linux/glibc/x86_64/libpdfium.so").to_str().unwrap().to_string(),
+            "x86" => root_dir.join("lib/dll/linux/glibc/x86/libpdfium.so").to_str().unwrap().to_string(),
+            "arm64" => root_dir.join("lib/dll/linux/glibc/arm64/libpdfium.so").to_str().unwrap().to_string(),
             _ => "Unknown".to_string(),
         },
         _ => "Unknown".to_string(),
