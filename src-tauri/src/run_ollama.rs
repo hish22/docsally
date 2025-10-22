@@ -1,12 +1,12 @@
 use std::process::{Command, ExitStatus};
 
 pub fn run_ollama() -> ExitStatus {
-    #[cfg(any(target_os = "linux", target_os = "macos"))]
+    #[cfg(any(target_os = "linux"))]
     {
         Command::new("sh")
-            .arg("ollama list")
-            .spawn()
-            .expect("Failed to run .sh sidecar");
+            .args(["-c","ollama list"])
+            .status()
+            .expect("Failed to run .sh ollama")
     }
 
     #[cfg(target_os = "windows")]
