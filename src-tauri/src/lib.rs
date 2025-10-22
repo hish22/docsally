@@ -7,25 +7,32 @@ use utils::check_system::check_system;
 // use utils::install_nomic_embed_text::install_nemt;
 use utils::ollama_list::ollama_list;
 mod logic;
+mod run_ollama;
 mod utils;
-
 pub fn run() {
-    tauri::Builder::default()
-        .plugin(tauri_plugin_shell::init())
-        .plugin(tauri_plugin_store::Builder::new().build())
-        .plugin(tauri_plugin_process::init())
-        .manage(AppState::default())
-        .invoke_handler(tauri::generate_handler![
-            check_system,
-            ollama_list,
-            // install_nemt,
-            register_pdf,
-            ask_question,
-            // check_nomic
-        ])
-        .plugin(tauri_plugin_fs::init())
-        .plugin(tauri_plugin_dialog::init())
-        .plugin(tauri_plugin_opener::init())
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+    // Starting ollama.exe process before docsally
+    let r = run_ollama::run_ollama();
+
+    if r.success() {
+        tauri::Builder::default()
+            .plugin(tauri_plugin_shell::init())
+            .plugin(tauri_plugin_store::Builder::new().build())
+            .plugin(tauri_plugin_process::init())
+            .manage(AppState::default())
+            .invoke_handler(tauri::generate_handler![
+                check_system,
+                ollama_list,
+                // install_nemt,
+                register_pdf,
+                ask_question,
+                // check_nomic
+            ])
+            .plugin(tauri_plugin_fs::init())
+            .plugin(tauri_plugin_dialog::init())
+            .plugin(tauri_plugin_opener::init())
+            .run(tauri::generate_context!())
+            .expect("error while running tauri application");
+    } else {
+        eprintln!("{}", "Failed to find ollama!");
+    }
 }

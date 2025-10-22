@@ -1,6 +1,6 @@
-use std::process::Command;
+use std::process::{Command, ExitStatus};
 
-pub fn run_ollama() {
+pub fn run_ollama() -> ExitStatus {
     #[cfg(any(target_os = "linux", target_os = "macos"))]
     {
         Command::new("sh")
@@ -13,7 +13,7 @@ pub fn run_ollama() {
     {
         Command::new("cmd")
             .args(["/C", "ollama list"])
-            .spawn()
-            .expect("Failed to run .cmd ollama");
+            .status()
+            .expect("Failed to run .cmd ollama")
     }
 }
