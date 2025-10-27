@@ -8,9 +8,7 @@
   "permissions": [
     "core:default",
     "opener:default",
-    "dialog:default",
     "fs:default",
-    "process:default",
     "store:default",
     {
       "identifier": "shell:allow-execute",
