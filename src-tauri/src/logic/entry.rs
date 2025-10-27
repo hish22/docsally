@@ -21,6 +21,7 @@ use langchain_rust::{
 };
 use std::pin::Pin;
 use tauri::{AppHandle, Emitter};
+use tauri_plugin_store::StoreExt;
 
 use std::sync::{Arc, Mutex};
 
@@ -56,9 +57,33 @@ impl OllamaChat {
     ///
     /// # Returns
     /// Returns a configured chat service ready for question answering
-    pub async fn new(file: String, llm_type: String) -> Result<Self, Box<dyn std::error::Error>> {
+    pub async fn new(
+        file: String,
+        llm_type: String,
+        app: AppHandle,
+    ) -> Result<Self, Box<dyn std::error::Error>> {
         let content = extract_pdf(file);
-        let store = db_embedding(ollama_embedder(), content.unwrap()).await;
+
+        // Fetch default model_settings values.
+        let store = app.store("model_set.json")?;
+
+        let chunk_size = store
+            .get("chunk-size")
+            .expect("Failed to get the value from model_set.json")
+            .take()
+            .as_u64()
+            .unwrap() as usize;
+
+        let overlap = store
+            .get("overlap-size")
+            .expect("Failed to get the value from model_set.json")
+            .take()
+            .as_u64()
+            .unwrap() as usize;
+
+        println!("{} chunks", chunk_size);
+
+        let store = db_embedding(ollama_embedder(), content.unwrap(), chunk_size, overlap).await;
 
         let llm = OpenAI::new(OllamaConfig::default()).with_model(llm_type);
 
@@ -113,9 +138,10 @@ pub async fn register_pdf(
     file: String,
     llm: String,
     state: tauri::State<'_, AppState>,
+    app: AppHandle,
 ) -> Result<String, String> {
     // Do the expensive processing
-    let chat_service = OllamaChat::new(file, llm)
+    let chat_service = OllamaChat::new(file, llm, app.clone())
         .await
         .map_err(|e| format!("Failed to initialize chat service: {}", e))?;
 

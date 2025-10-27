@@ -55,6 +55,8 @@ fn chunk_text(text: &str, chunk_size: usize, overlap: usize) -> Vec<String> {
 pub async fn db_embedding(
     ollama_embedder: OpenAiEmbedder<OllamaConfig>,
     doc_data: String,
+    chunk_size: usize,
+    overlap: usize,
 ) -> Store<Any> {
     let db_url = "memory".to_string();
 
@@ -91,7 +93,7 @@ pub async fn db_embedding(
 
     store.initialize().await.unwrap();
 
-    let chunks = chunk_text(&doc_data, 1000, 200); // adjust size/overlap
+    let chunks = chunk_text(&doc_data, chunk_size, overlap); // adjust size/overlap
     let documents: Vec<Document> = chunks.into_iter().map(Document::new).collect();
 
     // let doc = Document::new(doc_data);
