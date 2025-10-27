@@ -26,7 +26,6 @@
 #settings-sections p {
   text-align: left;
   font-size: 20px;
-  background-color: var(--color-neutral-900);
   cursor: pointer;
   padding: 10px;
 }
