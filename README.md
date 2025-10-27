@@ -1,7 +1,7 @@
 # Docsally
 
 <p align="center">
-<img src="public/assets/docsallyLogo.png" alt="logo">
+<img src="public/assets/showcasing_v2.png" alt="logo">
 </p>
 
 ![Apache License](https://img.shields.io/badge/license-Apache%202.0-blue)
@@ -15,9 +15,6 @@
 - <a href="https://ollama.com">Ollama</a>
 - Nomic-embed-text model (The Nomic-Embed-Text model will be downloaded automatically when the application runs.)
 
-> [!NOTE]
-> The application may temporarily freeze while installing the Nomic-Embed-Text model, which is expected behavior.
-
 ## 📖 Description
 
 **Docsally** is a simple AI document reader that helps you understand and summarize PDFs easily. It uses Ollama to run local AI models, extracts content from PDF files, and turns it into smart vectors stored in a vector database. This allows you to ask questions and get quick, accurate answers based on your documents.
@@ -27,11 +24,15 @@ Docsally is built to be easy to use—not complicated. More features will be add
 ## 📸 Showcasing
 
 <p align="center">
-<img src="public/assets/docsally_testcase2.png" alt="logo">
+<img src="public/assets/showcase_main_view.png" alt="logo">
 </p>
 
 <p align="center">
-<img src="public/assets/docsally_testcase.png" alt="logo">
+<img src="public/assets/showcase_models_view.png" alt="logo">
+</p>
+
+<p align="center">
+<img src="public/assets/showcase_example_view.png" alt="logo">
 </p>
 
 ## 🔧 Installation
