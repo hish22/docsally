@@ -41,9 +41,21 @@ fn handle_os() -> String {
             _ => "Unknown".to_string(),
         },
         os_info::Type::Ubuntu => match os.architecture().unwrap() {
-            "x86_64" => root_dir.join("lib/dll/linux/glibc/x86_64/libpdfium.so").to_str().unwrap().to_string(),
-            "x86" => root_dir.join("lib/dll/linux/glibc/x86/libpdfium.so").to_str().unwrap().to_string(),
-            "arm64" => root_dir.join("lib/dll/linux/glibc/arm64/libpdfium.so").to_str().unwrap().to_string(),
+            "x86_64" => root_dir
+                .join("lib/dll/linux/glibc/x86_64/libpdfium.so")
+                .to_str()
+                .unwrap()
+                .to_string(),
+            "x86" => root_dir
+                .join("lib/dll/linux/glibc/x86/libpdfium.so")
+                .to_str()
+                .unwrap()
+                .to_string(),
+            "arm64" => root_dir
+                .join("lib/dll/linux/glibc/arm64/libpdfium.so")
+                .to_str()
+                .unwrap()
+                .to_string(),
             _ => "Unknown".to_string(),
         },
         _ => "Unknown".to_string(),

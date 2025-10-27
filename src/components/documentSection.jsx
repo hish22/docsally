@@ -6,6 +6,7 @@ import { useState, useMemo, createContext, useEffect } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import loading from "./../assets/icons/animated/tube-spinner.svg";
 import ollamaIcon from "./../assets/icons/tools/ollama.svg";
+import { listen } from "@tauri-apps/api/event";
 
 export default function DocumentSection({setPageNumber,ollama,setDisableChat,selectedModel,setDisableModelSelection}) {
 
@@ -37,6 +38,7 @@ export default function DocumentSection({setPageNumber,ollama,setDisableChat,sel
         }).catch(err => {
             console.log(err);
         });
+
     }
 
     useEffect(() => {

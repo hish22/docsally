@@ -101,7 +101,5 @@ pub async fn db_embedding(
         .await
         .unwrap();
 
-    println!("Document added successfully!");
-
     store
 }
