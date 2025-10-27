@@ -25,6 +25,8 @@
           "sidecar": false
         }
       ]
-    }
+    },
+    "dialog:default",
+    "process:default"
   ]
 }

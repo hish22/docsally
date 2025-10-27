@@ -1,3 +1,5 @@
+use tauri_plugin_dialog::{DialogExt, MessageDialogKind};
+
 use logic::entry::ask_question;
 use logic::entry::register_pdf;
 use logic::entry::AppState;
@@ -40,6 +42,19 @@ pub fn run() {
             .run(tauri::generate_context!())
             .expect("error while running tauri application");
     } else {
+        tauri::Builder::default()
+            .plugin(tauri_plugin_dialog::init())
+            .setup(|app| {
+                app.dialog()
+                    .message("Failed to find Ollama!")
+                    .kind(MessageDialogKind::Error)
+                    .title("Error")
+                    .blocking_show();
+                app.handle().exit(1);
+                Ok(())
+            })
+            .run(tauri::generate_context!())
+            .expect("error while running tauri application");
         eprintln!("{}", "Failed to find ollama!");
     }
 }
