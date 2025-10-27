@@ -3,6 +3,8 @@ use tauri_plugin_dialog::{DialogExt, MessageDialogKind};
 use logic::entry::ask_question;
 use logic::entry::register_pdf;
 use logic::entry::AppState;
+use serde_json::json;
+use tauri_plugin_store::StoreExt;
 // use utils::check_nomic::check_nomic;
 use utils::check_system::check_system;
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -39,6 +41,21 @@ pub fn run() {
             .plugin(tauri_plugin_fs::init())
             .plugin(tauri_plugin_dialog::init())
             .plugin(tauri_plugin_opener::init())
+            .setup(|app| {
+                // Init model settings json file
+                let store = app.store("model_set.json")?;
+
+                if store.get("chunk-size").is_none() {
+                    store.set("chunk-size", json!(1000));
+                }
+
+                if store.get("overlap-size").is_none() {
+                    store.set("overlap-size", json!(200));
+                }
+
+                store.save()?;
+                Ok(())
+            })
             .run(tauri::generate_context!())
             .expect("error while running tauri application");
     } else {
