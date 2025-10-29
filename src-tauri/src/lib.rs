@@ -1,8 +1,8 @@
 use tauri_plugin_dialog::{DialogExt, MessageDialogKind};
 
-use logic::entry::ask_question;
-use logic::entry::register_pdf;
-use logic::entry::AppState;
+use chat_operations::entry::ask_question;
+use chat_operations::entry::register_pdf;
+use chat_operations::entry::AppState;
 use serde_json::json;
 use tauri_plugin_store::StoreExt;
 // use utils::check_nomic::check_nomic;
@@ -10,9 +10,10 @@ use utils::check_system::check_system;
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 // use utils::install_nomic_embed_text::install_nemt;
 use utils::ollama_list::ollama_list;
+mod chat_operations;
 mod check_nomic;
 mod install_nomic_embed_text;
-mod logic;
+mod pdf_operations;
 mod run_ollama;
 mod utils;
 pub fn run() {
