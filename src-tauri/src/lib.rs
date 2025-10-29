@@ -10,6 +10,7 @@ use utils::check_system::check_system;
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 // use utils::install_nomic_embed_text::install_nemt;
 use utils::ollama_list::ollama_list;
+
 mod chat_operations;
 mod check_nomic;
 mod install_nomic_embed_text;
@@ -20,10 +21,10 @@ pub fn run() {
     // Starting ollama.exe process before docsally
     let r = run_ollama::run_ollama();
 
-    if r.success() {
+    if r {
         let cn = check_nomic::check_nomic();
 
-        if !cn.success() {
+        if !cn {
             install_nomic_embed_text::install_nemt();
         }
         tauri::Builder::default()
