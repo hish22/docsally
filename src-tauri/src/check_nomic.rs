@@ -1,25 +1,35 @@
-//! Utilities for detecting the presence of the Nomic "nomic-embed-text" model.
+//! Utilities for detecting the presence of the Nomic `nomic-embed-text`
+//! model using the `ollama_rs` client library.
 //!
-//! This file exposes a small Tauri command that runs the host `ollama` binary
-//! to check whether the `nomic-embed-text` model is available (via
-//! `ollama show nomic-embed-text`). The command returns the underlying
-//! process `ExitStatus` so callers can inspect success/failure.
+//! The crate exposes a small Tauri command, `check_nomic()`, which returns a
+//! boolean indicating whether the `nomic-embed-text` model is available. The
+//! implementation delegates to the async helper `search_for_embedmodel()` that
+//! queries the local Ollama daemon through `ollama_rs` and maps success/failure
+//! to `true`/`false` respectively. This keeps the frontend logic simple—only
+//! a boolean result is returned to indicate presence of the model.
 
-use std::process::{Command, ExitStatus};
+use ollama_rs::Ollama;
 
-use crate::utils::cli_type_specification::cmd_type;
-
-/// Runs `ollama show nomic-embed-text` using the CLI command parts returned
-/// by `cmd_type()`.
+/// Tauri command that returns `true` when the `nomic-embed-text` model is
+/// available and `false` otherwise.
 ///
-/// Returns the process `ExitStatus`. Exposed as a Tauri command so the
-/// frontend can determine whether the required Nomic model is present.
+/// This is a thin synchronous wrapper around the async helper
+/// `search_for_embedmodel()` so it can be called directly from the frontend.
 #[tauri::command]
-pub fn check_nomic() -> ExitStatus {
-    let opitions = cmd_type();
+pub fn check_nomic() -> bool {
+    search_for_embedmodel()
+}
+#[tokio::main]
+pub async fn search_for_embedmodel() -> bool {
+    // Query the local Ollama daemon via the `ollama_rs` client. We only need
+    // to know whether the model info request succeeds; the detailed model
+    // metadata is not required here.
+    let ollama_model = Ollama::default()
+        .show_model_info("nomic-embed-text".to_string())
+        .await;
 
-    Command::new(&opitions[0])
-        .args([&opitions[1], "ollama show nomic-embed-text"])
-        .status()
-        .expect("failed of find nomic-embed-text")
+    match ollama_model {
+        Ok(_) => true,
+        Err(_) => false,
+    }
 }
