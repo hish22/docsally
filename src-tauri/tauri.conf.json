@@ -1,8 +1,13 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "docsally",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "identifier": "com.docsally.app",
+  "plugins": {
+    "sql": {
+      "preload": ["sqlite:state.db"]
+    }
+  },
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",

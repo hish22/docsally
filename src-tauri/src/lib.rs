@@ -11,10 +11,13 @@ use utils::check_system::check_system;
 // use utils::install_nomic_embed_text::install_nemt;
 use utils::ollama_list::ollama_list;
 
+use persistence::tables_migration::state_system_table_migrations;
+
 mod chat_operations;
 mod check_nomic;
 mod install_nomic_embed_text;
 mod pdf_operations;
+mod persistence;
 mod run_ollama;
 mod utils;
 pub fn run() {
@@ -28,7 +31,11 @@ pub fn run() {
             install_nomic_embed_text::install_nemt();
         }
         tauri::Builder::default()
-            .plugin(tauri_plugin_sql::Builder::new().build())
+            .plugin(
+                tauri_plugin_sql::Builder::default()
+                    .add_migrations("sqlite:state.db", state_system_table_migrations())
+                    .build(),
+            )
             .plugin(tauri_plugin_shell::init())
             .plugin(tauri_plugin_store::Builder::new().build())
             .plugin(tauri_plugin_process::init())
