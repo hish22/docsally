@@ -162,7 +162,7 @@ export default function ChatResponse(props) {
                     onChange={(e) => setQuestion(e.target.value)}
                     disabled={ isStreaming || (!isStreaming && props.disableChat)}
                 />
-                <p className="fixed bottom-2 right-3 text-gray-400 text-sm bg-neutral-800 px-2 py-1 rounded-xl">{props.ollama != "" ? props.ollama : "No Model"}</p>
+                <p className="fixed bottom-2 right-3 text-gray-400 text-sm bg-neutral-800 px-2 py-1 rounded-xl">{props.ollama != "" ? props.pageNumber ? props.ollama + " | " + props.pageNumber : props.ollama : "No Model"}</p>
             </motion.form>
         </>
     );

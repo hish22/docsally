@@ -1,78 +1,14 @@
 import "./../App.css";
+import Switcher from "./Switcher";
 
-// Import of icons
-import deepseek_r1 from "./../assets/icons/models/deepseek-r1.png";
-import devstral from "./../assets/icons/models/devstral.png";
-import qwen3 from "./../assets/icons/models/qwen3.png";
-import gemma3 from "./../assets/icons/models/gemma3.png";
-import llama4 from"./../assets/icons/models/llama4.png";
-import phi_4 from "./../assets/icons/models/Microsoft_icon.svg.png";
-import mistral from "./../assets/icons/models/mistral-color.svg";
-import olmo from "./../assets/icons/models/olmo.png";
-// import specificOsStyle from "../util/osSpecificStyle";
-import { useEffect, useState } from "react";
-
-export default function OptionsSection({pageNumber,setOllama,ollamaList,setSelectedModel,disableModelSelection}) {
-
-    useEffect(() => {
-        // Apply specific OS style.
-        // specificOsStyle();
-    },[]);
-
-    // const [selected,setSelected] = useState("");
-
-    // const models = [{
-    //         name: "deepseek",
-    //         icon: deepseek_r1
-    //     },{
-    //         name: "devstral",
-    //         icon: devstral
-    //     },{
-    //         name: "qwen",
-    //         icon: qwen3
-    //     },{
-    //         name: "gemma",
-    //         icon: gemma3
-    //     },{
-    //         name: "llama",
-    //         icon: llama4
-    //     },{
-    //         name: "phi",
-    //         icon: phi_4
-    //     },{
-    //         name: "mistral",
-    //         icon: mistral
-    //     },{
-    //         name: "qwq",
-    //         icon: qwen3
-    //     },{
-    //         name: "olmo",
-    //         icon: olmo
-    //     }];
-
-        // const splitedList = selected.split(":");
-
-        // const filteredIcon = models.filter((item) => splitedList[0].trim().includes(item.name));
+export default function OptionsSection({setOllama,ollamaList,setSelectedModel,disableModelSelection}) {
         
     return (
         <>
             <section id="options-section">
-                <p style={{fontSize:"11px"}}>Docsally<span className="m-1">0.2.0v</span></p>
-                {/* <div className="flex">
-                    {splitedList[0].trim() ? filteredIcon.map((item,index) => (
-                        <img key={index} src={item.icon} width={40}/>
-                    )): null}
-                    <select name="ollamas" id="ollama-select" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-neutral-500 focus:border-neutral-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-                    disabled={disableModelSelection}
-                     onChange={e=>{setOllama(e.target.value); setSelected(e.target.value); setSelectedModel(e.target.value)}} >
-                    <option value={""}>Select Model</option>
-                    {ollamaList.filter((item) => item != "nomic-embed-text:latest").map((item,index) => (
-                        <option key={index} value={item}>{item}</option>
-                    ))}
-                    </select>
-                </div>  */}
+                <p style={{fontSize:"11px"}}>Docsally<span className="m-1">0.3.0v</span></p>
                 <div>
-                    <p>{pageNumber}</p>
+                    <Switcher disableModelSelection={disableModelSelection}></Switcher>
                 </div>
             </section>
         </>
