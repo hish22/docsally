@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS files (
+    file_id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    location TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+)
