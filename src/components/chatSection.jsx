@@ -4,7 +4,7 @@ import sidebar from "./../assets/icons/app/sidebar.svg";
 import settingsIcon from "./../assets/icons/app/settings.svg";
 import modelIcon from "./../assets/icons/app/model.png";
 import { useEffect, useState } from "react";
-export default function ChatSection({ollama,disableChat,setOpenSettings,setOpenModels,openModels,openSettings,disableModelSelection}) {
+export default function ChatSection({ollama,disableChat,setOpenSettings,setOpenModels,openModels,openSettings,disableModelSelection,pageNumber}) {
 
     const [sidebarStatus,setSidebarStatus] = useState(0);
     const [hideOtherIcons,setHideOtherIcons] = useState(1);
@@ -30,7 +30,7 @@ export default function ChatSection({ollama,disableChat,setOpenSettings,setOpenM
                     <div>
                         <img src={settingsIcon} width={35} id="chat-sidebar" onClick={() => setOpenSettings(true)} className="mt-4" style={hideOtherIcons ? {display: "block"} : {display: "none"}}/>
                     </div>
-                    <ChatResponse check={sidebarStatus} ollama={ollama} disableChat={disableChat}/>
+                    <ChatResponse check={sidebarStatus} ollama={ollama} disableChat={disableChat} pageNumber={pageNumber}/>
                 </div>
         </div>
     );

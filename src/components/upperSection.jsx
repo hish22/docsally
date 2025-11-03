@@ -3,14 +3,14 @@ import DocumentSection from "./documentSection";
 import "./../App.css";
 import { useState } from "react";
 
-export default function UpperSection({setPageNumber,ollama,selectedModel,setOpenSettings,setDisableModelSelection,setOpenModels,openModels,openSettings,disableModelSelection}) {
+export default function UpperSection({setPageNumber,ollama,selectedModel,setOpenSettings,setDisableModelSelection,setOpenModels,openModels,openSettings,disableModelSelection,pageNumber,setDisableStateSelection}) {
 
     const [disableChat,setDisableChat] = useState(true);
 
     return (
         <section id="upper-section">
-            <ChatSection ollama={ollama} disableChat={disableChat} setOpenSettings={setOpenSettings} setOpenModels={setOpenModels} openModels={openModels} openSetting={openSettings} disableModelSelection={disableModelSelection}/>
-            <DocumentSection setPageNumber={setPageNumber} ollama={ollama} setDisableChat={setDisableChat} selectedModel={selectedModel} setDisableModelSelection={setDisableModelSelection}/>
+            <ChatSection ollama={ollama} disableChat={disableChat} setOpenSettings={setOpenSettings} setOpenModels={setOpenModels} openModels={openModels} openSetting={openSettings} disableModelSelection={disableModelSelection} pageNumber={pageNumber}/>
+            <DocumentSection setPageNumber={setPageNumber} ollama={ollama} setDisableChat={setDisableChat} selectedModel={selectedModel} setDisableModelSelection={setDisableModelSelection} setDisableStateSelection={setDisableStateSelection} />
         </section>
     );
 }
