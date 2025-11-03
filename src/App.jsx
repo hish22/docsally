@@ -36,6 +36,7 @@ function App() {
   const [ollama,setOllama] = useState("");
   const [ollamaList, setOllamaList] = useState([]);
   const [disableModelSelection,setDisableModelSelection] = useState(false);
+  const [disableStateSelection,setDisableStateSelection] = useState(false);
   const [openSettings,setOpenSettings] = useState(false);
   const [openModels,setOpenModels] = useState(0);
   // const [installNote,setInstallNote] = useState(true);
@@ -90,13 +91,14 @@ function App() {
   return (
     <>
       <section id="main-page" style={openSettings ? {display: "none"}:{display:"flex"}} onClick={() => {openModels && setOpenModels(0)}}>
-        <OptionsSection pageNumber={pageNumber} 
+        <OptionsSection disableStateSelection={disableStateSelection}
                         setOllama={setOllama} 
                         ollamaList={ollamaList} 
                         setSelectedModel={setSelectedModel} 
                         disableModelSelection={disableModelSelection}>
         </OptionsSection>
-        <UpperSection setPageNumber={setPageNumber} 
+        <UpperSection setPageNumber={setPageNumber}
+                      pageNumber={pageNumber}  
                       ollama={ollama} 
                       selectedModel={selectedModel} 
                       setDisableModelSelection={setDisableModelSelection} 
@@ -104,7 +106,8 @@ function App() {
                       setOpenSettings={setOpenSettings} 
                       setOpenModels={setOpenModels} 
                       openModels={openModels} 
-                      openSettings={openSettings}>
+                      openSettings={openSettings}
+                      setDisableStateSelection={setDisableModelSelection}>
         </UpperSection>
       </section>
       <section id="settings-page" style={openSettings ? {display: "block"}:{display:"none"}}>
