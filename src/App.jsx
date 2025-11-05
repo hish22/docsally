@@ -20,6 +20,7 @@ import { load } from "@tauri-apps/plugin-store";
 // Import Settings CSS
 import "./pages/settings/css/Settings.css";
 import ModelSection from "./components/modelSection";
+import SaveAsBox from "./components/saveAsBox";
 
 // Check if the platform is not out of bound.
 checkSystem();
@@ -31,53 +32,18 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 
 function App() {
 
-  // const [nomicFound,setNomicFound] = useState(nomicStatus());
   const [selectedModel,setSelectedModel] = useState("");
   const [ollama,setOllama] = useState("");
   const [ollamaList, setOllamaList] = useState([]);
   const [disableModelSelection,setDisableModelSelection] = useState(false);
   const [disableStateSelection,setDisableStateSelection] = useState(false);
+  const [disableSaveButton,setDisableSaveButton] = useState(false);
   const [openSettings,setOpenSettings] = useState(false);
   const [openModels,setOpenModels] = useState(0);
-  // const [installNote,setInstallNote] = useState(true);
   const [pageNumber,setPageNumber] = useState(null);
+  const [uploadedFile,setUploadedFile] = useState(null);
 
-  // Total closing state
-  // const [closeModal,setCloseModal] = useState(false);
-
-  // useEffect(() => {
-  //   const fetchNomicData = async () => {
-  //     try{
-  //       const status = await checkNomic();
-  //       console.log(status);
-  //       setInstallNote(status);
-  //       if(!status) {
-  //           const store = await load("settings.json",{ autoSave: false });
-  //           const installed = await createNomicEmbedTextModel();
-  //           const status = await store.set("installed_nomic",installed);
-  //           await store.save();
-  //           setInstallNote(status);
-  //       }
-  //     } catch (err){
-  //       console.log("Failed to fetch data",err);
-  //       setInstallNote(false);
-  //     }
-  //   }
-  //   fetchNomicData();
-  // },[installNote])
-
-  // useEffect(() => {
-  //   if (installedNomic.current) {return;}
-  //   installedNomic.current = true
-
-  //   const nomicStatusCheck = async () => {
-  //     const status = await nomicStatus();
-  //     setInstallNote(status);
-  //   }
-
-  //   nomicStatusCheck();
-
-  // },[]);
+  const [openSaveAsPanel,setOpenSaveAsPanel] = useState(false);
 
   useEffect(() => {
     const fetchList = async () => {
@@ -101,13 +67,19 @@ function App() {
                       pageNumber={pageNumber}  
                       ollama={ollama} 
                       selectedModel={selectedModel} 
-                      setDisableModelSelection={setDisableModelSelection} 
+                      setDisableModelSelection={setDisableModelSelection}
                       disableModelSelection={disableModelSelection}
                       setOpenSettings={setOpenSettings} 
                       setOpenModels={setOpenModels} 
                       openModels={openModels} 
                       openSettings={openSettings}
-                      setDisableStateSelection={setDisableModelSelection}>
+                      setDisableStateSelection={setDisableStateSelection}
+                      disableSaveButton={disableSaveButton}
+                      setDisableSaveButton={setDisableSaveButton}
+                      uploadedFile={uploadedFile}
+                      setUploadedFile={setUploadedFile}
+                      setOpenSaveAsPanel={setOpenSaveAsPanel}
+                      >
         </UpperSection>
       </section>
       <section id="settings-page" style={openSettings ? {display: "block"}:{display:"none"}}>
@@ -120,6 +92,11 @@ function App() {
                       setOllama={setOllama}
                       setOpenModels={setOpenModels}
                       />
+      </section>
+      <section style={openSaveAsPanel ? {display: "block"}:{display:"none"}}>
+        <SaveAsBox
+          setOpenSaveAsPanel={setOpenSaveAsPanel}
+        />
       </section>
     </>
   )

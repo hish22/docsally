@@ -3,8 +3,21 @@ import ChatResponse from "./chatResponse";
 import sidebar from "./../assets/icons/app/sidebar.svg";
 import settingsIcon from "./../assets/icons/app/settings.svg";
 import modelIcon from "./../assets/icons/app/model.png";
+import saveIcon from "./../assets/icons/app/save.svg";
 import { useEffect, useState } from "react";
-export default function ChatSection({ollama,disableChat,setOpenSettings,setOpenModels,openModels,openSettings,disableModelSelection,pageNumber}) {
+import createNewSave from "../util/save/createNewSave";
+export default function ChatSection({ollama,
+    disableChat,
+    setOpenSettings,
+    setOpenModels,
+    openModels,
+    openSettings,
+    disableModelSelection,
+    pageNumber,
+    disableSaveButton,
+    uploadedFile,
+    setOpenSaveAsPanel
+}) {
 
     const [sidebarStatus,setSidebarStatus] = useState(0);
     const [hideOtherIcons,setHideOtherIcons] = useState(1);
@@ -31,6 +44,15 @@ export default function ChatSection({ollama,disableChat,setOpenSettings,setOpenM
                         <img src={settingsIcon} width={35} id="chat-sidebar" onClick={() => setOpenSettings(true)} className="mt-4" style={hideOtherIcons ? {display: "block"} : {display: "none"}}/>
                     </div>
                     <ChatResponse check={sidebarStatus} ollama={ollama} disableChat={disableChat} pageNumber={pageNumber}/>
+                </div>
+                <div>
+                    {(disableSaveButton &&
+                        <>
+                            <hr className="mt-5" style={hideOtherIcons ? {display: "block"} : {display: "none"}}/>
+                            <img onClick={() => setOpenSaveAsPanel(true)} src={saveIcon} width={35} id="chat-sidebar" className="mt-4" style={hideOtherIcons ? {display: "block"} : {display: "none"}}/>
+                        </>
+                    )}
+
                 </div>
         </div>
     );

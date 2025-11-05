@@ -9,9 +9,18 @@ import ollamaIcon from "./../assets/icons/tools/ollama.svg";
 import { listen } from "@tauri-apps/api/event";
 import Switcher11 from "./Switcher";
 
-export default function DocumentSection({setPageNumber,ollama,setDisableChat,selectedModel,setDisableModelSelection,setDisableStateSelection}) {
+export default function DocumentSection({setPageNumber,
+    ollama,
+    setDisableChat,
+    selectedModel,
+    setDisableModelSelection,
+    setDisableStateSelection,
+    setDisableSaveButton,
+    uploadedFile,
+    setUploadedFile
+}) {
 
-    const [uploadedFile,setUploadedFile] = useState(null);
+    // const [uploadedFile,setUploadedFile] = useState(null);
     const [fileContent,setFileContent] = useState(null);
     const [loadedDocument,setLoadedDocument] = useState(false);
 
@@ -28,6 +37,7 @@ export default function DocumentSection({setPageNumber,ollama,setDisableChat,sel
             const llm = ollama;
             setDisableModelSelection(true);
             setDisableStateSelection(true);
+            setDisableSaveButton(true);
             invoke('register_pdf',{file: file, llm: llm}).then((payload) => {
                 setLoadedDocument(() => payload === "Chat service initialized successfully" ? true : false);
                 setDisableChat(false);
