@@ -31,6 +31,7 @@ pub fn run() {
             install_nomic_embed_text::install_nemt();
         }
         tauri::Builder::default()
+            .plugin(tauri_plugin_sql::Builder::new().build())
             .plugin(
                 tauri_plugin_sql::Builder::default()
                     .add_migrations("sqlite:state.db", state_system_table_migrations())
@@ -73,7 +74,7 @@ pub fn run() {
             .plugin(tauri_plugin_dialog::init())
             .setup(|app| {
                 app.dialog()
-                    .message("Failed to find Ollama!")
+                    .message("Failed to find Ollama, Please run ollama to use docsally!")
                     .kind(MessageDialogKind::Error)
                     .title("Error")
                     .blocking_show();
