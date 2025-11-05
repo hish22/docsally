@@ -37,6 +37,6 @@
       "icons/icon.icns",
       "icons/icon.ico"
     ],
-    "resources":["lib","bin"]
+    "resources":["lib","bin","pdf"]
   }
 }
