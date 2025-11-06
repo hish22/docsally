@@ -1,12 +1,17 @@
 import "./../App.css";
 import Switcher from "./Switcher";
 
-export default function OptionsSection({setOllama,ollamaList,setSelectedModel,disableModelSelection}) {
+export default function OptionsSection({setOllama,ollamaList,setSelectedModel,disableModelSelection,fileID,stateID}) {
         
     return (
         <>
             <section id="options-section">
-                <p style={{fontSize:"11px"}}>Docsally<span className="m-1">0.3.0v</span></p>
+                {(fileID && stateID ?
+                    <p style={{fontSize:"11px"}}>{fileID}:{stateID} | Docsally<span className="m-1">0.3.0v</span></p>
+                :
+                    <p style={{fontSize:"11px"}}>Docsally<span className="m-1">0.3.0v</span></p>
+                )}
+                
                 <div>
                     <Switcher disableModelSelection={disableModelSelection}></Switcher>
                 </div>
