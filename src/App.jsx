@@ -21,6 +21,7 @@ import { load } from "@tauri-apps/plugin-store";
 import "./pages/settings/css/Settings.css";
 import ModelSection from "./components/modelSection";
 import SaveAsBox from "./components/saveAsBox";
+import Notify from "./components/notify";
 
 // Check if the platform is not out of bound.
 checkSystem();
@@ -41,9 +42,16 @@ function App() {
   const [openSettings,setOpenSettings] = useState(false);
   const [openModels,setOpenModels] = useState(0);
   const [pageNumber,setPageNumber] = useState(null);
-  const [uploadedFile,setUploadedFile] = useState(null);
+  const [uploadedFile,setUploadedFile] = useState("");
 
   const [openSaveAsPanel,setOpenSaveAsPanel] = useState(false);
+  const [showNotify,setShowNotify] = useState(false);
+
+  // State Save useStates
+  const [chats,setChats] = useState([]);
+  const [fileID,setFileID] = useState(null);
+  const [stateID,setStateID] = useState(null);
+  const [stateChatID,setStateChatID] = useState(null);
 
   useEffect(() => {
     const fetchList = async () => {
@@ -52,7 +60,8 @@ function App() {
       });
     }
     fetchList();
-  },[]);
+    console.log(chats);
+  },[chats]);
 
   return (
     <>
@@ -61,7 +70,10 @@ function App() {
                         setOllama={setOllama} 
                         ollamaList={ollamaList} 
                         setSelectedModel={setSelectedModel} 
-                        disableModelSelection={disableModelSelection}>
+                        disableModelSelection={disableModelSelection}
+                        fileID={fileID}
+                        stateID={stateID}
+                        >
         </OptionsSection>
         <UpperSection setPageNumber={setPageNumber}
                       pageNumber={pageNumber}  
@@ -79,6 +91,7 @@ function App() {
                       uploadedFile={uploadedFile}
                       setUploadedFile={setUploadedFile}
                       setOpenSaveAsPanel={setOpenSaveAsPanel}
+                      setChats={setChats}
                       >
         </UpperSection>
       </section>
@@ -93,9 +106,20 @@ function App() {
                       setOpenModels={setOpenModels}
                       />
       </section>
+      { showNotify && <Notify message={"Saved"} onClose={() => setShowNotify(false)}/>}
       <section style={openSaveAsPanel ? {display: "block"}:{display:"none"}}>
         <SaveAsBox
           setOpenSaveAsPanel={setOpenSaveAsPanel}
+          setFileID={setFileID}
+          setStateID={setStateID}
+          fileID={fileID}
+          stateID={stateID}
+          selectedModel={selectedModel}
+          uploadedFile={uploadedFile}
+          chats={chats}
+          stateChatID={stateChatID}
+          setStateChatID={setStateChatID}
+          setShowNotify={setShowNotify}
         />
       </section>
     </>
