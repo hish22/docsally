@@ -5,7 +5,6 @@ import settingsIcon from "./../assets/icons/app/settings.svg";
 import modelIcon from "./../assets/icons/app/model.png";
 import saveIcon from "./../assets/icons/app/save.svg";
 import { useEffect, useState } from "react";
-import createNewSave from "../util/save/createNewSave";
 export default function ChatSection({ollama,
     disableChat,
     setOpenSettings,
@@ -16,7 +15,8 @@ export default function ChatSection({ollama,
     pageNumber,
     disableSaveButton,
     uploadedFile,
-    setOpenSaveAsPanel
+    setOpenSaveAsPanel,
+    setChats
 }) {
 
     const [sidebarStatus,setSidebarStatus] = useState(0);
@@ -43,7 +43,7 @@ export default function ChatSection({ollama,
                     <div>
                         <img src={settingsIcon} width={35} id="chat-sidebar" onClick={() => setOpenSettings(true)} className="mt-4" style={hideOtherIcons ? {display: "block"} : {display: "none"}}/>
                     </div>
-                    <ChatResponse check={sidebarStatus} ollama={ollama} disableChat={disableChat} pageNumber={pageNumber}/>
+                    <ChatResponse check={sidebarStatus} ollama={ollama} disableChat={disableChat} pageNumber={pageNumber} setChats={setChats}/>
                 </div>
                 <div>
                     {(disableSaveButton &&

@@ -32,6 +32,10 @@ export default function ChatResponse(props) {
                 setChunkRes([]); // Clear previous chunks
                 chunksRef.current = []; // Clear ref as well
                 setIsStreaming(true);
+                props.setChats((prev) => [...prev, {
+                    "type": "user",
+                    "text": question
+                }]); // append chat response into chats
             }
         }
     };
@@ -76,6 +80,10 @@ export default function ChatResponse(props) {
                     setChunkRes([]); // Clear chunks after adding to response
                     chunksRef.current = []; // Clear ref as well
                     setIsStreaming(false);
+                    props.setChats((prev) => [...prev, {
+                        "type": "bot",
+                        "text": allChunks
+                    }]); // append chat response into chats
                 });
             } catch (error) {
                 console.error("Error setting up listeners:", error);

@@ -18,7 +18,8 @@ export default function UpperSection({setPageNumber,
     setDisableSaveButton,
     setUploadedFile,
     uploadedFile,
-    setOpenSaveAsPanel
+    setOpenSaveAsPanel,
+    setChats
 }) {
 
     const [disableChat,setDisableChat] = useState(true);
@@ -36,6 +37,7 @@ export default function UpperSection({setPageNumber,
             disableSaveButton={disableSaveButton}
             uploadedFile={uploadedFile}
             setOpenSaveAsPanel={setOpenSaveAsPanel}
+            setChats={setChats}
             />
             
             <DocumentSection 
