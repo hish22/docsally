@@ -20,7 +20,9 @@ export default function SaveAsBox({
   chats,
   stateChatID,
   setStateChatID,
-  setShowNotify
+  setShowNotify,
+  showNotify,
+  setChats
 }) {
   const [name, setName] = useState(defaultName);
   const [location, setLocation] = useState(defaultLocation);
@@ -30,6 +32,11 @@ export default function SaveAsBox({
     setName(defaultName);
     setLocation(uploadedFile);
   }, [defaultName, defaultLocation, open]);
+
+  const showErr = (e) => {
+    setShowNotify(true);
+    { showNotify && <Notify message={e} onClose={() => setShowNotify(false)}/>}
+  }
 
   // close on ESC
   useEffect(() => {
@@ -79,6 +86,7 @@ export default function SaveAsBox({
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Save name"
                 className="mt-2 block w-full rounded-md border border-neutral-700 px-3 py-2 text-sm placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-neutral-800"
+                required
               />
             </label>
 
@@ -91,6 +99,7 @@ export default function SaveAsBox({
                   placeholder={uploadedFile}
                   className="flex-1 rounded-md border border-neutral-700 px-3 py-2 text-sm placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-neutral-800"
                   disabled
+                  required
                 />
               </div>
             </label>
@@ -120,24 +129,25 @@ export default function SaveAsBox({
                         InsertNewChat(element.type,element.text,index,state_chat_r.lastInsertId).then((r) => {
                           console.log(r);
                         }).catch((e) => {
-                          console.log(e);
+                          showErr(e);
                         });
 
                         setShowNotify(true);
+                        setChats([]);
                         onClose();
 
                       });
 
                     }).catch((e) => {
-                      console.log(e);
+                      showErr(e);
                     })
                   
                   }).catch((e) => {
-                    console.log(e);
+                    showErr(e);
                   });
                 
                 }).catch((e) => {
-                  console.log(e);
+                  showErr(e);
                 })
               }}
             >
