@@ -19,7 +19,21 @@ export default function UpperSection({setPageNumber,
     setUploadedFile,
     uploadedFile,
     setOpenSaveAsPanel,
-    setChats
+    setChats,
+    fileID,
+    stateID,
+    stateChatID,
+    savedChats,
+    showNotify,
+    setShowNotify,
+    setSavedChats,
+    setFileID,
+    setStateID,
+    setStateChatID,
+    setOllama,
+    chats,
+    setChatSeq,
+    chatSeq
 }) {
 
     const [disableChat,setDisableChat] = useState(true);
@@ -38,6 +52,15 @@ export default function UpperSection({setPageNumber,
             uploadedFile={uploadedFile}
             setOpenSaveAsPanel={setOpenSaveAsPanel}
             setChats={setChats}
+            fileID={fileID}
+            stateID={stateID}
+            stateChatID={stateChatID}
+            savedChats={savedChats}
+            setShowNotify={setShowNotify}
+            showNotify={showNotify}
+            chats={chats}
+            setChatSeq={setChatSeq}
+            chatSeq={chatSeq}
             />
             
             <DocumentSection 
@@ -50,6 +73,14 @@ export default function UpperSection({setPageNumber,
             setDisableSaveButton={setDisableSaveButton}
             setUploadedFile={setUploadedFile}
             uploadedFile={uploadedFile}
+            savedChats={savedChats}
+            showNotify={showNotify}
+            setShowNotify={setShowNotify}
+            setSavedChats={setSavedChats}
+            setFileID={setFileID}
+            setStateID={setStateID}
+            setStateChatID={setStateChatID}
+            setOllama={setOllama}
             />
         </section>
     );
