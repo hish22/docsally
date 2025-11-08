@@ -5,6 +5,7 @@ import Markdown from "react-markdown";
 import { listen } from "@tauri-apps/api/event";
 import loading from "./../assets/icons/animated/fade-stagger-squares.svg";
 import { motion,AnimatePresence } from "motion/react";
+import SelectFromState from "../util/store/select/selectQuery";
 export default function ChatResponse(props) {
     const [response, setResponse] = useState([]);
     const [question, setQuestion] = useState("");
@@ -18,6 +19,31 @@ export default function ChatResponse(props) {
     const streamEndUnlisten = useRef(null);
     const streamUnlisten = useRef(null);
     const chunksRef = useRef([]); // Store chunks in ref to avoid closure issues
+
+    const [chatLoadedFromDB,setChatLoadedFromDB] = useState(false);
+
+    const showErr = (e) => {
+        props.setShowNotify(true);
+        { props.showNotify && <Notify message={e} onClose={() => setShowNotify(false)}/>}
+    }
+
+    useEffect(() => {
+        if(props.fileID && props.stateID && props.stateChatID && !chatLoadedFromDB) {
+            SelectFromState("SELECT * FROM chats WHERE state_chat_id=$1 ORDER BY chat_seq;",[props.stateChatID])
+            .then((chats) => {
+                chats.map((chat) => {
+                    setResponse((prev) => [...prev, {
+                        "type": chat.user_type,
+                        "text": chat.payload
+                    }]);
+                });
+                setChatLoadedFromDB(true);
+                props.setChatSeq(chats.length);
+            }).catch((e) => {
+                showErr(e);
+            });
+        }
+    },[props.fileID,props.stateID,props.stateChatID]);
 
     const addToUserRes = (event) => {
         if (event.key === "Enter" && !event.shiftKey) {
