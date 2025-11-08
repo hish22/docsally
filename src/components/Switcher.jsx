@@ -5,6 +5,7 @@ const Switcher = (props) => {
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked)
+    props.setSavedChats(isChecked);
   }
 
   return (
