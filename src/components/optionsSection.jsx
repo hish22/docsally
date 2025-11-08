@@ -1,7 +1,7 @@
 import "./../App.css";
 import Switcher from "./Switcher";
 
-export default function OptionsSection({setOllama,ollamaList,setSelectedModel,disableModelSelection,fileID,stateID}) {
+export default function OptionsSection({setOllama,ollamaList,setSelectedModel,disableModelSelection,fileID,stateID,setSavedChats}) {
         
     return (
         <>
@@ -13,7 +13,7 @@ export default function OptionsSection({setOllama,ollamaList,setSelectedModel,di
                 )}
                 
                 <div>
-                    <Switcher disableModelSelection={disableModelSelection}></Switcher>
+                    <Switcher disableModelSelection={disableModelSelection} setSavedChats={setSavedChats}></Switcher>
                 </div>
             </section>
         </>
