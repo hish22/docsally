@@ -41,14 +41,17 @@ function App() {
   const [disableSaveButton,setDisableSaveButton] = useState(false);
   const [openSettings,setOpenSettings] = useState(false);
   const [openModels,setOpenModels] = useState(0);
+
   const [pageNumber,setPageNumber] = useState(null);
   const [uploadedFile,setUploadedFile] = useState("");
+  const [savedChats,setSavedChats] = useState(true);
 
   const [openSaveAsPanel,setOpenSaveAsPanel] = useState(false);
   const [showNotify,setShowNotify] = useState(false);
 
   // State Save useStates
   const [chats,setChats] = useState([]);
+  const [chatSeq,setChatSeq] = useState(0);
   const [fileID,setFileID] = useState(null);
   const [stateID,setStateID] = useState(null);
   const [stateChatID,setStateChatID] = useState(null);
@@ -73,6 +76,7 @@ function App() {
                         disableModelSelection={disableModelSelection}
                         fileID={fileID}
                         stateID={stateID}
+                        setSavedChats={setSavedChats}
                         >
         </OptionsSection>
         <UpperSection setPageNumber={setPageNumber}
@@ -92,6 +96,20 @@ function App() {
                       setUploadedFile={setUploadedFile}
                       setOpenSaveAsPanel={setOpenSaveAsPanel}
                       setChats={setChats}
+                      fileID={fileID}
+                      stateID={stateID}
+                      stateChatID={stateChatID}
+                      savedChats={savedChats}
+                      setShowNotify={setShowNotify}
+                      showNotify={showNotify}
+                      setSavedChats={setSavedChats}
+                      setFileID={setFileID}
+                      setStateID={setStateID}
+                      setStateChatID={setStateChatID}
+                      setOllama={setOllama}
+                      chats={chats}
+                      setChatSeq={setChatSeq}
+                      chatSeq={chatSeq}
                       >
         </UpperSection>
       </section>
@@ -120,6 +138,8 @@ function App() {
           stateChatID={stateChatID}
           setStateChatID={setStateChatID}
           setShowNotify={setShowNotify}
+          showNotify={showNotify}
+          setChats={setChats}
         />
       </section>
     </>
