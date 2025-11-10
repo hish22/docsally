@@ -40,7 +40,7 @@ export default function ChatResponse(props) {
                 setChatLoadedFromDB(true);
                 props.setChatSeq(chats.length);
             }).catch((e) => {
-                showErr(e);
+                showErr(e.message);
             });
         }
     },[props.fileID,props.stateID,props.stateChatID]);

@@ -129,7 +129,7 @@ export default function SaveAsBox({
                         InsertNewChat(element.type,element.text,index,state_chat_r.lastInsertId).then((r) => {
                           console.log(r);
                         }).catch((e) => {
-                          showErr(e);
+                          showErr(e.message);
                         });
 
                         setShowNotify(true);
@@ -139,15 +139,15 @@ export default function SaveAsBox({
                       });
 
                     }).catch((e) => {
-                      showErr(e);
+                      showErr(e.message);
                     })
                   
                   }).catch((e) => {
-                    showErr(e);
+                    showErr(e.message);
                   });
                 
                 }).catch((e) => {
-                  showErr(e);
+                  showErr(e.message);
                 })
               }}
             >

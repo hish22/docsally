@@ -85,7 +85,7 @@ export default function ChatSection({ollama,
                                     ).then((chat_r) => {
                                         console.log(chat_r);
                                     }).catch((e) => {
-                                        showErr(e);
+                                        showErr(e.message);
                                     });
                                     setShowNotify(true);
                                     setChats([]);

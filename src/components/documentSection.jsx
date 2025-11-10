@@ -43,7 +43,7 @@ export default function DocumentSection({setPageNumber,
     useEffect(() => {
         SelectFromState("SELECT * FROM states AS s INNER JOIN files As f ON s.file_id = f.file_id INNER JOIN state_chat As sc ON s.state_id = sc.state_id;").then((state) =>
             setLoadedStates(state)
-        ).catch((e) => showErr(e));
+        ).catch((e) => showErr(e.message));
         console.log(loadedStates);
     },[]);
     
