@@ -110,6 +110,7 @@ function App() {
                       chats={chats}
                       setChatSeq={setChatSeq}
                       chatSeq={chatSeq}
+                      setSelectedModel={setSelectedModel}
                       >
         </UpperSection>
       </section>

@@ -28,7 +28,8 @@ export default function DocumentSection({setPageNumber,
     setFileID,
     setStateID,
     setStateChatID,
-    setOllama
+    setOllama,
+    setSelectedModel
 }) {
 
     // const [uploadedFile,setUploadedFile] = useState(null);
@@ -53,6 +54,7 @@ export default function DocumentSection({setPageNumber,
 
         setSavedChats(false);
         setOllama(ollama);
+        setSelectedModel(ollama);
         const pdfFile = ReplaceSlash(path);
         const file = await join(await appDataDir(), "pdf", pdfFile[pdfFile.length - 1]);
         const llm = ollama;

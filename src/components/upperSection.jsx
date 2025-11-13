@@ -33,7 +33,8 @@ export default function UpperSection({setPageNumber,
     setOllama,
     chats,
     setChatSeq,
-    chatSeq
+    chatSeq,
+    setSelectedModel
 }) {
 
     const [disableChat,setDisableChat] = useState(true);
@@ -81,6 +82,7 @@ export default function UpperSection({setPageNumber,
             setStateID={setStateID}
             setStateChatID={setStateChatID}
             setOllama={setOllama}
+            setSelectedModel={setSelectedModel}
             />
         </section>
     );
