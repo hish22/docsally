@@ -9,6 +9,8 @@ import ollamaIcon from "./../assets/icons/tools/ollama.svg";
 import { listen } from "@tauri-apps/api/event";
 import Switcher11 from "./Switcher";
 import SelectFromState from "../util/store/select/selectQuery";
+import { appDataDir, join } from "@tauri-apps/api/path";
+import ReplaceSlash from "../util/slashReplace";
 
 export default function DocumentSection({setPageNumber,
     ollama,
@@ -51,21 +53,23 @@ export default function DocumentSection({setPageNumber,
 
         setSavedChats(false);
         setOllama(ollama);
+        const pdfFile = ReplaceSlash(path);
+        const file = await join(await appDataDir(), "pdf", pdfFile[pdfFile.length - 1]);
+        const llm = ollama;
 
         if(path) {
-            await setUploadedFile(path);
-            const file = path;
-            const llm = ollama;
+            await setUploadedFile(file);
+            console.log(file);
             setDisableModelSelection(true);
             setDisableStateSelection(true);
             setDisableSaveButton(true);
-            invoke('register_pdf',{file: file, llm: llm}).then((payload) => {
+            await invoke('register_pdf',{file: file, llm: llm}).then((payload) => {
                 setLoadedDocument(() => payload === "Chat service initialized successfully" ? true : false);
                 setDisableChat(false);
             });
         }
 
-        const data = readFile(path);
+        const data = readFile(file);
         data.then((uin8data) => {
             setFileContent(uin8data);
         }).catch(err => {
@@ -121,6 +125,7 @@ export default function DocumentSection({setPageNumber,
                 {loadedStates.length != 0 && loadedStates.map((s,index) => (
                     <div key={index}
                     onClick={() => {
+                        console.log(s.location);
                         handleSavedStateFile(s.location,s.model_name);
                         setFileID(s.file_id);
                         setStateID(s.state_id);
