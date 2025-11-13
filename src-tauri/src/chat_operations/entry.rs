@@ -80,8 +80,6 @@ impl OllamaChat {
             .as_u64()
             .unwrap() as usize;
 
-        println!("{} chunks", chunk_size);
-
         let store = db_embedding(ollama_embedder(), content.unwrap(), chunk_size, overlap).await;
 
         let llm = OpenAI::new(OllamaConfig::default()).with_model(llm_type);
