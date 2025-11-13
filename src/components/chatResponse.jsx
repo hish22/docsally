@@ -28,7 +28,7 @@ export default function ChatResponse(props) {
     }
 
     useEffect(() => {
-        if(props.fileID && props.stateID && props.stateChatID && !chatLoadedFromDB) {
+        if(props.fileID && props.stateID && props.stateChatID && !chatLoadedFromDB && response.length == 0) {
             SelectFromState("SELECT * FROM chats WHERE state_chat_id=$1 ORDER BY chat_seq;",[props.stateChatID])
             .then((chats) => {
                 chats.map((chat) => {
