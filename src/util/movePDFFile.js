@@ -18,12 +18,22 @@ export default async function MovePDfFile(path) {
             baseDir: BaseDirectory.AppData
         });
     }
-    // move pdf file to pdf dir
-    const pdfFile = await copyFile(path,desPath)
-    .then((f) => {
-        console.log("File moved!");
-    }).catch((e) => {
-        console.log(e);
+
+    const pdfFilePath = await join("pdf",sp[sp.length - 1]);
+
+    const pdfFileExist = await exists(pdfFilePath,{
+        baseDir: BaseDirectory.AppData
     })
-    return await join("pdf",sp[sp.length - 1]);
+
+    if (!pdfFileExist) {
+        // move pdf file to pdf dir
+        const pdfFile = await copyFile(path,desPath)
+        .then((f) => {
+            console.log("File moved!");
+        }).catch((e) => {
+            console.log(e);
+        })
+    }
+
+    return pdfFilePath;
 }
