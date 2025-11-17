@@ -56,7 +56,6 @@ export default function SaveAsBox({
     }
   }
 
-  console.log(chats);
 
   return (
     <div
@@ -117,6 +116,8 @@ export default function SaveAsBox({
             <button
               className="inline-flex items-center rounded-lg bg-neutral-600 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-700 cursor-pointer"
               onClick={() => {
+
+                if(name != "") {
                 InsertNewFile(name,uploadedFile).then((file_r) => {
                   setFileID(file_r.lastInsertId);
                 
@@ -151,8 +152,9 @@ export default function SaveAsBox({
                   showErr(e.message);
                 })
               }}
-            >
-              Save
+                }
+              >
+            Save
             </button>
           </div>
         </div>

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 
-
 export default function Notify({message, type = "success", onClose}) {
     useEffect(() => {
         if (message) {
