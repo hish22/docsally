@@ -24,15 +24,15 @@ Docsally is built to be easy to use—not complicated. More features will be add
 ## 📸 Showcasing
 
 <p align="center">
-<img src="public/assets/showcase_main_view.png" alt="logo">
+<img src="public/assets/0_3_0/Showcase_1.png" alt="logo">
 </p>
 
 <p align="center">
-<img src="public/assets/showcase_models_view.png" alt="logo">
+<img src="public/assets/0_3_0/Showcase_2.png" alt="logo">
 </p>
 
 <p align="center">
-<img src="public/assets/showcase_example_view.png" alt="logo">
+<img src="public/assets/0_3_0/Showcase_3.png" alt="logo">
 </p>
 
 ## 🔧 Installation
