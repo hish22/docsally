@@ -23,7 +23,7 @@ export default function ModeSwithcer(props) {
           handleSwitch("pdf");
           handlePDF();
         }}
-        className={`px-4 py-2 rounded-xl transition-all cursor-pointer ${
+        className={`px-4 py-2 rounded-xl transition-all cursor-pointer mb-2 ${
           mode === "pdf"
             ? "bg-neutral-800 text-white shadow"
             : "bg-transparent text-gray-400 hover:text-white"
@@ -36,7 +36,7 @@ export default function ModeSwithcer(props) {
           handleSwitch("text");
           handleText();
         }}
-        className={`px-4 py-2 rounded-xl transition-all cursor-pointer ${
+        className={`px-4 py-2 rounded-xl transition-all cursor-pointer mb-2 ${
           mode === "text"
             ? "bg-neutral-800 text-white shadow"
             : "bg-transparent text-gray-400 hover:text-white"
