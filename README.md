@@ -63,7 +63,7 @@ docsally
 
 ## 🎲 Basic usage
 
-- to zoom-in use (ctrl)
+- to zoom-in use (Shift)
 - to zoom-out use (alt)
 
 ## 📢 Reporting Issues
