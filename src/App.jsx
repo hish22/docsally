@@ -63,7 +63,6 @@ function App() {
       });
     }
     fetchList();
-    console.log(chats);
   },[chats]);
 
   return (
