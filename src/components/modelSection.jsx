@@ -14,7 +14,7 @@ export default function ModelSection({ ollamaList, openModels, setSelectedModel,
                     exit={{ opacity: 0, scale: 0 }}
                     transition={{
                         duration: 0.2,
-                        scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
+                        scale: { type: "spring", visualDuration: 0.4, bounce: 0.1 },
                     }}
                     className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-neutral-700 p-2 rounded-xl"
                 >
