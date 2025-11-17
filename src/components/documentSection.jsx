@@ -11,6 +11,17 @@ import Switcher11 from "./Switcher";
 import SelectFromState from "../util/store/select/selectQuery";
 import { appDataDir, join } from "@tauri-apps/api/path";
 import ReplaceSlash from "../util/slashReplace";
+import deleteIcon from "../assets/icons/app/delete.svg";
+import loadIcon from "../assets/icons/app/load.svg";
+
+import DeleteFromChat from "../util/store/delete/deleteFromChat";
+import DeleteFromFile from "../util/store/delete/deleteFromFile";
+import DeleteFromState from "../util/store/delete/deleteFromState";
+import DeleteFromStateChat from "../util/store/delete/deleteFromStateChat";
+import DeletePDFFile from "../util/store/deletePDFFile";
+
+
+
 
 export default function DocumentSection({setPageNumber,
     ollama,
@@ -43,11 +54,14 @@ export default function DocumentSection({setPageNumber,
         { showNotify && <Notify message={e} onClose={() => setShowNotify(false)}/>}
     }
 
-    useEffect(() => {
+    const updateState = () => {
         SelectFromState("SELECT * FROM states AS s INNER JOIN files As f ON s.file_id = f.file_id INNER JOIN state_chat As sc ON s.state_id = sc.state_id;").then((state) =>
             setLoadedStates(state)
-        ).catch((e) => showErr(e.message));
-        console.log(loadedStates);
+        ).catch((e) => showErr(e.message));      
+    }
+  
+    useEffect(() => {
+        updateState();
     },[]);
     
     const handleSavedStateFile = async (path,ollama) => {
@@ -109,6 +123,16 @@ export default function DocumentSection({setPageNumber,
 
     }
 
+    const handleDeleteState = async (state_chat_id,file_id,state_id,pdf_location) => {
+        await DeleteFromChat(state_chat_id);
+        await DeleteFromStateChat(state_id);
+        await DeleteFromState(file_id);
+        await DeleteFromFile(file_id)
+        await DeletePDFFile(pdf_location);      
+        updateState();
+    }
+    
+  
     useEffect(() => {
         if(!loadedDocument) {
             setUploadedFile(null);
@@ -125,20 +149,32 @@ export default function DocumentSection({setPageNumber,
                 <h1 className="text-2xl m-4">Saved States</h1>
                 {loadedStates.length == 0 && <h1 className="m-6">No saved states</h1>}
                 {loadedStates.length != 0 && loadedStates.map((s,index) => (
-                    <div key={index}
-                    onClick={() => {
-                        console.log(s.location);
-                        handleSavedStateFile(s.location,s.model_name);
-                        setFileID(s.file_id);
-                        setStateID(s.state_id);
-                        setStateChatID(s.state_chat_id);
-                    }} 
-                    className="cursor-pointer inline-block m-2 rounded-xl bg-neutral-800 hover:bg-neutral-700 transition-all duration-200 border border-neutral-700 p-5 shadow-md hover:shadow-lg">
-                        <h1>{s.name}</h1>
-                        <p className=" text-[12px]">{s.file_id}:{s.state_id}</p>
-                        <p>{s.location}</p>
-                        <p>{s.model_name}</p>
-                        <p><span className=" font-bold">Created At:</span> {s.created_at}</p>
+                    <div key={index} className="inline-block m-2 rounded-xl bg-neutral-800 hover:bg-neutral-700 transition-all duration-200 border border-neutral-700 p-5 shadow-md hover:shadow-lg">
+                        <div 
+                      > 
+                            <h1>{s.name}</h1>
+                            <p className=" text-[12px]">{s.file_id}:{s.state_id}</p>
+                            <p>{s.location}</p>
+                            <p>{s.model_name}</p>
+                            <p><span className=" font-bold">Created At:</span> {s.created_at}</p>
+                        </div>
+                        <div className="flex">
+                            <img src={loadIcon} width={25} onClick={() => {
+                            console.log(s.location);
+                            handleSavedStateFile(s.location,s.model_name);
+                            setFileID(s.file_id);
+                            setStateID(s.state_id);
+                            setStateChatID(s.state_chat_id);
+                        }} 
+                        className="cursor-pointer"
+                        />
+                            <img src={deleteIcon} width={25} className="cursor-pointer ml-2" onClick={
+                                () => {
+                                   console.log(s.location);
+                                   handleDeleteState(s.state_chat_id,s.file_id,s.state_id,s.location); 
+                                }
+                            } />
+                        </div>
                     </div>
                 )
                 )}
